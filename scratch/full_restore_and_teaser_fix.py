@@ -1,4 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import sys
+
+path = r'c:\Users\Hp\OneDrive\Desktop\colosseum landing\Colosseum_MMXXVI\roman-canvas-93\src\routes\index.tsx'
+
+content = """import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -77,41 +81,6 @@ function Particles() {
     </div>
   );
 }
-
-
-const EventCard = ({ event, index, total }: { event: any; index: number; total: number }) => {
-  const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start end", "start start"],
-  });
-
-  const scale = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.4, 1], [0, 1, 1]);
-
-  return (
-    <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
-      <motion.article 
-        style={{ scale, opacity, top: `calc(-5% + ${index * 25}px)` }}
-        className="group relative w-full max-w-4xl overflow-hidden border border-gold/20 bg-stone-rome/90 p-8 md:p-20 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.9)]"
-      >
-        <div className="marble-texture" />
-        <div className="relative z-10 flex flex-col md:flex-row items-center gap-12 md:gap-20">
-          <div className="relative">
-             <div className="absolute inset-0 bg-gold/10 blur-3xl rounded-full scale-150 animate-pulse-glow" />
-             <img src={event.icon} alt="" className="relative w-40 h-40 md:w-64 md:h-64 object-contain filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)]" />
-          </div>
-          <div className="flex-1 text-center md:text-left">
-            <span className="font-heading text-crimson-bright tracking-[0.5em] text-[0.65rem] uppercase mb-4 block">{event.type}</span>
-            <h3 className="font-display text-gold-gradient text-3xl md:text-5xl mb-6 tracking-wide">{event.name}</h3>
-            <div className="h-px w-20 bg-gold/30 mb-8 mx-auto md:mx-0" />
-            <p className="font-body text-parchment/80 text-lg leading-relaxed">{event.desc}</p>
-          </div>
-        </div>
-      </motion.article>
-    </div>
-  );
-};
 
 function Colosseum() {
   useReveal();
@@ -227,19 +196,6 @@ function Colosseum() {
         </div>
       </header>
 
-      {/* QUOTE BANNER */}
-      <section className="relative py-24 px-6 overflow-hidden" style={{ background: "var(--gradient-crimson)" }}>
-        <span className="absolute -left-4 top-0 font-display text-parchment/[0.04] select-none pointer-events-none" style={{ fontSize: "20rem", lineHeight: 1 }}>❝</span>
-        <div className="relative z-10 max-w-4xl mx-auto text-center reveal">
-          <p className="font-body italic text-parchment" style={{ fontSize: "clamp(1.4rem, 3.2vw, 2.6rem)", lineHeight: 1.3 }}>
-            “Where engineering minds clash with complex problems and creative souls dazzle with brilliance.”
-          </p>
-          <div className="h-px w-20 bg-gold/30 mx-auto mt-10" />
-          <p className="font-heading text-gold/80 tracking-[0.4em] text-[0.65rem] uppercase mt-8">The Philosophy of Colosseum</p>
-        </div>
-      </section>
-
-
       <section id="about" className="relative py-20 md:py-32 px-6 overflow-hidden">
         <div className="marble-texture" />
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center border-x border-gold/10 px-8 md:px-20 relative">
@@ -261,16 +217,29 @@ function Colosseum() {
         </div>
       </section>
 
-            {/* EVENTS SECTION - STACK SCROLL */}
-      <section id="events" className="relative bg-ash">
-        <div className="max-w-7xl mx-auto px-6 pt-32 text-center mb-[-10vh]">
-          <p className="font-heading text-gold tracking-[0.4em] text-[0.7rem] uppercase mb-4">Competitive Arena</p>
-          <h2 className="font-display font-black text-gold-gradient" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>Featured Events</h2>
-        </div>
-        <div className="relative max-w-7xl mx-auto px-6">
-          {EVENTS.map((event, i) => (
-            <EventCard key={event.name} event={event} index={i} total={EVENTS.length} />
-          ))}
+      <section id="events" className="relative py-32 px-6 bg-ash overflow-hidden">
+        <div className="marble-texture" />
+        <div className="max-w-7xl mx-auto border-x border-gold/10 px-8 md:px-20 relative">
+          <div className="text-center mb-24">
+            <p className="font-heading text-gold tracking-[0.5em] text-[0.7rem] uppercase mb-6">The Arena of Excellence</p>
+            <h2 className="font-display font-black text-gold-gradient" style={{ fontSize: "clamp(3rem, 6vw, 5rem)" }}>Featured Events</h2>
+            <div className="h-px w-40 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-8" />
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {EVENTS.map((event) => (
+              <article key={event.name} className="group relative">
+                <div className="aspect-[3/4] overflow-hidden border border-gold/20 bg-stone-rome/40 transition-all duration-500 group-hover:border-gold/50 group-hover:bg-stone-rome/60">
+                  <div className="h-full w-full flex flex-col items-center justify-center p-10 text-center">
+                    <img src={event.icon} alt="" className="w-32 h-32 md:w-40 md:h-40 object-contain mb-8 filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] transition-transform duration-700 group-hover:scale-110" />
+                    <span className="font-heading text-crimson-bright tracking-[0.4em] text-[0.6rem] uppercase mb-3">{event.type}</span>
+                    <h3 className="font-display text-parchment text-2xl mb-4 group-hover:text-gold transition-colors">{event.name}</h3>
+                    <div className="h-px w-12 bg-gold/30 mb-6 transition-all duration-500 group-hover:w-20 group-hover:bg-gold" />
+                    <p className="font-body text-parchment/60 text-sm leading-relaxed line-clamp-4">{event.desc}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -291,3 +260,9 @@ function Colosseum() {
     </div>
   );
 }
+"""
+
+with open(path, 'w', encoding='utf-8') as f:
+    f.write(content)
+
+print("Success")
