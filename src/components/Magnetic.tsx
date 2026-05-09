@@ -1,7 +1,13 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useSpring } from "framer-motion";
 
-export default function Magnetic({ children, strength = 0.5 }: { children: React.ReactNode, strength?: number }) {
+export default function Magnetic({
+  children,
+  strength = 0.5,
+}: {
+  children: React.ReactNode;
+  strength?: number;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -13,15 +19,15 @@ export default function Magnetic({ children, strength = 0.5 }: { children: React
     if (!ref.current) return;
     const { clientX, clientY } = e;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
-    
+
     const center = {
       x: left + width / 2,
-      y: top + height / 2
+      y: top + height / 2,
     };
 
     const dist = {
       x: clientX - center.x,
-      y: clientY - center.y
+      y: clientY - center.y,
     };
 
     // Only apply if mouse is relatively close to the element

@@ -1,10 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  Outlet,
-  Link,
-  createRootRouteWithContext,
-  useRouter,
-} from "@tanstack/react-router";
+import { Outlet, Link, createRootRouteWithContext, useRouter } from "@tanstack/react-router";
 
 function NotFoundComponent() {
   return (
@@ -12,7 +7,9 @@ function NotFoundComponent() {
       <div className="marble-texture" />
       <div className="max-w-md text-center relative z-10">
         <h1 className="text-7xl font-display text-gold">404</h1>
-        <h2 className="mt-4 text-xl font-heading text-parchment uppercase tracking-widest">Page not found</h2>
+        <h2 className="mt-4 text-xl font-heading text-parchment uppercase tracking-widest">
+          Page not found
+        </h2>
         <p className="mt-2 text-sm text-parchment/60 font-body italic">
           The arena you seek has vanished into history.
         </p>
