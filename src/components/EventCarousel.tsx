@@ -14,6 +14,7 @@ interface CardProps {
   index: number;
   activeIndex: number;
   totalCards: number;
+  onClick: () => void;
 }
 
 const cardData: CardData[] = [
@@ -127,6 +128,7 @@ export default function EventCarousel() {
                 index={index}
                 activeIndex={activeIndex}
                 totalCards={cardData.length}
+                onClick={() => changeSlide(index === activeIndex ? activeIndex + 1 : index)}
               />
             ))}
           </motion.div>
@@ -184,7 +186,7 @@ export default function EventCarousel() {
   );
 }
 
-function Card({ card, index, activeIndex, totalCards }: CardProps) {
+function Card({ card, index, activeIndex, totalCards, onClick }: CardProps) {
   let offset = index - activeIndex;
   if (offset > totalCards / 2) {
     offset -= totalCards;
@@ -206,12 +208,13 @@ function Card({ card, index, activeIndex, totalCards }: CardProps) {
 
   return (
     <motion.div
-      className="absolute w-[90%] md:w-[500px] h-full"
+      className="absolute w-[90%] md:w-[500px] h-full cursor-pointer"
       style={{
         transformStyle: "preserve-3d",
         perspective: "1200px",
         WebkitFontSmoothing: "antialiased"
       }}
+      onClick={onClick}
       animate={animate}
       initial={false}
       transition={{ type: "spring", stiffness: 180, damping: 24 }}
