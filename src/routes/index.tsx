@@ -7,24 +7,30 @@ import {
   useMotionValue,
   useSpring,
   AnimatePresence,
+  MotionValue,
 } from "framer-motion";
 import ScrollFloat from "../components/ScrollFloat";
 import DotField from "../components/DotField";
 import Magnetic from "../components/Magnetic";
 import Lenis from "lenis";
 import EventCarousel from "../components/EventCarousel";
+import EventModal from "../components/EventModal";
 
 export const Route = createFileRoute("/")({
   component: Colosseum,
   head: () => ({
     meta: [
-      { title: "COLOSSEUM 2026 — Techno-Cultural Festival" },
+      { title: "COLOSSEUM 2026 — BEC Creative Spectrum" },
       {
         name: "description",
         content:
-          "The inaugural Techno-Cultural Festival of BEC Creative Spectrum at Basaveshwar Engineering College.",
+          "The inaugural Techno-Cultural Festival of BEC Creative Spectrum at Basaveshwar Engineering College. Where engineering minds clash and creative souls dazzle.",
       },
       { property: "og:title", content: "COLOSSEUM 2026 — BEC Creative Spectrum" },
+      { name: "theme-color", content: "#0c0c0e" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
     ],
   }),
 });
@@ -32,45 +38,6 @@ export const Route = createFileRoute("/")({
 const NAV = [
   { href: "#about", label: "About" },
   { href: "#events", label: "Events" },
-];
-
-const EVENTS = [
-  {
-    name: "ROYAL RUMBLE",
-    type: "Technical Battle Royale",
-    icon: "/roman-art/helmet.png",
-    desc: "A high-octane Battle Royale where teams answer technical questions to earn points and attack rival teams. The last team standing wins.",
-  },
-  {
-    name: "CLASH ROYALE",
-    type: "Technical Team Battle",
-    icon: "/roman-art/shield.png",
-    desc: "Teams solve technical questions to activate troop cards and deploy them against opponents in a strategic head-to-head battle.",
-  },
-  {
-    name: "ROBOWARS",
-    type: "Virtual Robot Combat",
-    icon: "/roman-art/ballista.png",
-    desc: "Construct virtual robots by selecting bodies and weapons, then battle in a 1v1 elimination bracket to outmaneuver opponents.",
-  },
-  {
-    name: "DOMINO EFFECT",
-    type: "Innovation Challenge",
-    icon: "/roman-art/arch.png",
-    desc: "A progressive challenge facing increasingly powerful 'Boss Encounters'. Solve problems under pressure to defeat the Final Boss.",
-  },
-  {
-    name: "FRAME THE CHAOS",
-    type: "Photography sprint",
-    icon: "/roman-art/mosaic.png",
-    desc: "A 60-minute photography sprint across the campus to capture beauty, stillness, and meaning in the chaos of the festival.",
-  },
-  {
-    name: "BEC'S GOT LATENT",
-    type: "Open Talent Showcase",
-    icon: "/roman-art/lyre.png",
-    desc: "An open platform for any student to showcase unique talents—singing, comedy, magic, or instrumental performance.",
-  },
 ];
 
 const Wreath = ({ className = "" }: { className?: string }) => (
@@ -199,6 +166,65 @@ function FloatingArtifacts({ scrollY }: { scrollY: MotionValue<number> }) {
   );
 }
 
+function Countdown() {
+  const targetDate = new Date("2026-05-16T09:00:00").getTime();
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        return;
+      }
+
+      setTimeLeft({
+        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((distance % (1000 * 60)) / 1000),
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [targetDate]);
+
+  const TimeUnit = ({ value, label }: { value: number; label: string }) => (
+    <div className="flex flex-col items-center">
+      <span className="font-display text-2xl md:text-4xl text-gold-gradient font-bold tracking-tighter">
+        {value.toString().padStart(2, "0")}
+      </span>
+      <span className="font-heading text-[0.5rem] md:text-[0.6rem] text-gold/40 tracking-[0.3em] uppercase mt-1">
+        {label}
+      </span>
+    </div>
+  );
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 1, duration: 1 }}
+      className="flex justify-center items-center gap-4 md:gap-8 mt-12 mb-8 bg-gold/5 backdrop-blur-sm border border-gold/10 px-8 py-4 rounded-sm"
+    >
+      <TimeUnit value={timeLeft.days} label="Days" />
+      <div className="h-8 w-px bg-gold/20" />
+      <TimeUnit value={timeLeft.hours} label="Hours" />
+      <div className="h-8 w-px bg-gold/20" />
+      <TimeUnit value={timeLeft.minutes} label="Mins" />
+      <div className="h-8 w-px bg-gold/20" />
+      <TimeUnit value={timeLeft.seconds} label="Secs" />
+    </motion.div>
+  );
+}
+
 function Colosseum() {
   useReveal();
   const [mounted, setMounted] = useState(false);
@@ -207,6 +233,10 @@ function Colosseum() {
   const [isExiting, setIsExiting] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const lenisRef = useRef<Lenis | null>(null);
+
+  const [selectedEvent, setSelectedEvent] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -221,6 +251,7 @@ function Colosseum() {
       wheelMultiplier: 1,
       touchMultiplier: 2,
     });
+    lenisRef.current = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
@@ -234,6 +265,21 @@ function Colosseum() {
     };
   }, []);
 
+  // Handle background scroll lock when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+      lenisRef.current?.stop();
+    } else {
+      document.body.style.overflow = "";
+      lenisRef.current?.start();
+    }
+    return () => {
+      document.body.style.overflow = "";
+      lenisRef.current?.start();
+    };
+  }, [isModalOpen]);
+
   const { scrollY } = useScroll();
   const smoothScrollY = useSpring(scrollY, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
@@ -246,6 +292,11 @@ function Colosseum() {
     setTimeout(() => {
       setShowIntro(false);
     }, 1000);
+  };
+
+  const handleEventSelect = (event: any) => {
+    setSelectedEvent(event);
+    setIsModalOpen(true);
   };
 
   if (!hasInteracted) {
@@ -266,9 +317,7 @@ function Colosseum() {
             }}
             className="group relative px-12 py-4 bg-crimson text-parchment font-heading text-xs tracking-[0.4em] uppercase overflow-hidden transition-all hover:scale-105 active:scale-95"
           >
-            <Magnetic strength={0.3}>
-              <span className="relative z-10">Enter the Arena</span>
-            </Magnetic>
+            <span className="relative z-10">Enter the Arena</span>
             <div className="absolute inset-0 bg-gold/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
           </button>
         </div>
@@ -308,26 +357,24 @@ function Colosseum() {
         className="fixed top-0 inset-x-0 z-[100] backdrop-blur-md border-b border-gold/20"
         style={{ background: "oklch(0.10 0.01 60 / 0.95)" }}
       >
-        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+        <div className="mx-auto max-w-7xl px-4 md:px-6 py-4 flex items-center justify-between">
           <a
             href="#"
-            className="font-display font-black text-gold-gradient tracking-[0.2em] text-base md:text-lg hover:brightness-125 transition-all"
+            className="font-display font-black text-gold-gradient tracking-[0.2em] text-sm md:text-lg hover:brightness-125 transition-all flex items-center gap-2"
           >
-            ⚔ COLOSSEUM
+            <span className="hidden sm:inline">⚔</span> COLOSSEUM
           </a>
 
           {/* Desktop Nav */}
           <ul className="hidden md:flex items-center gap-12">
             {NAV.map((n) => (
               <li key={n.href}>
-                <Magnetic strength={0.2}>
-                  <a
-                    href={n.href}
-                    className="font-heading text-[0.65rem] tracking-[0.4em] uppercase text-parchment/60 hover:text-gold transition-colors"
-                  >
-                    {n.label}
-                  </a>
-                </Magnetic>
+                <a
+                  href={n.href}
+                  className="font-heading text-[0.65rem] tracking-[0.4em] uppercase text-parchment/60 hover:text-gold transition-colors"
+                >
+                  {n.label}
+                </a>
               </li>
             ))}
           </ul>
@@ -335,18 +382,18 @@ function Colosseum() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-gold p-2 z-[110]"
+            className="md:hidden text-gold p-3 z-[110] -mr-2 touch-manipulation"
             aria-label="Toggle Menu"
           >
             <div className="w-6 h-5 relative flex flex-col justify-between">
               <span
-                className={`w-full h-0.5 bg-current transition-transform ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}
+                className={`w-full h-0.5 bg-current transition-transform duration-500 ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}
               />
               <span
-                className={`w-full h-0.5 bg-current transition-opacity ${mobileMenuOpen ? "opacity-0" : ""}`}
+                className={`w-full h-0.5 bg-current transition-opacity duration-300 ${mobileMenuOpen ? "opacity-0" : ""}`}
               />
               <span
-                className={`w-full h-0.5 bg-current transition-transform ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+                className={`w-full h-0.5 bg-current transition-transform duration-500 ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}
               />
             </div>
           </button>
@@ -393,18 +440,18 @@ function Colosseum() {
         <Particles />
         <motion.div
           style={{ y: heroParallax, opacity: heroOpacity }}
-          className="relative z-20 text-center px-6 w-full max-w-none"
+          className="relative z-20 text-center px-4 w-full"
         >
           <p
-            className="font-heading text-gold tracking-[0.4em] text-xs uppercase mb-6"
+            className="font-heading text-gold tracking-[0.4em] text-[0.6rem] md:text-xs uppercase mb-4 md:mb-6"
             style={{ animation: mounted ? "fadeUp 0.9s 0.3s both" : undefined, opacity: 1 }}
           >
             16th & 17th May 2026 · BEC Creative Spectrum
           </p>
-          <div className="py-8 overflow-hidden">
+          <div className="py-4 md:py-8 overflow-hidden">
             <h1
-              className="font-display text-imperial text-gold-gradient leading-[1.1] pb-8 px-4 flex justify-center flex-wrap gap-x-1 md:gap-x-2"
-              style={{ fontSize: "clamp(2.5rem, 12vw, 12rem)" }}
+              className="font-display text-gold-gradient leading-[1.1] pb-4 px-2 flex justify-center flex-wrap gap-x-1 md:gap-x-4"
+              style={{ fontSize: "clamp(2.8rem, 15vw, 12rem)" }}
             >
               {"COLOSSEUM".split("").map((char, i) => (
                 <motion.span
@@ -424,10 +471,11 @@ function Colosseum() {
               ))}
             </h1>
           </div>
+          <Countdown />
           <p
-            className="font-body italic text-parchment/80 mt-6"
+            className="font-body italic text-parchment/80 mt-6 max-w-sm md:max-w-none mx-auto"
             style={{
-              fontSize: "clamp(1rem, 2vw, 1.4rem)",
+              fontSize: "clamp(0.9rem, 4vw, 1.4rem)",
               animation: mounted ? "fadeUp 1s 0.8s both" : undefined,
               opacity: 1,
             }}
@@ -567,7 +615,7 @@ function Colosseum() {
           </h2>
         </div>
 
-        <EventCarousel />
+        <EventCarousel onSelect={handleEventSelect} />
       </section>
 
       <section className="relative py-40 px-6 bg-ash overflow-hidden border-t border-gold/10">
@@ -589,6 +637,12 @@ function Colosseum() {
           </p>
         </div>
       </section>
+
+      <EventModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        event={selectedEvent}
+      />
     </div>
   );
 }

@@ -7,6 +7,9 @@ interface CardData {
   title: string;
   type: string;
   desc: string;
+  fullBrief: string;
+  rules: string[];
+  registerUrl: string;
 }
 
 interface CardProps {
@@ -15,6 +18,7 @@ interface CardProps {
   activeIndex: number;
   totalCards: number;
   onClick: () => void;
+  onSelect?: (card: CardData) => void;
 }
 
 const cardData: CardData[] = [
@@ -22,45 +26,112 @@ const cardData: CardData[] = [
     id: 1,
     imageUrl: "/roman-art/helmet.png",
     title: "ROYAL RUMBLE",
-    type: "Technical Battle Royale",
-    desc: "A high-octane Battle Royale where teams answer technical questions to earn points and attack rival teams.",
-  },
-  {
-    id: 2,
-    imageUrl: "/roman-art/shield.png",
-    title: "CLASH ROYALE",
-    type: "Technical Team Battle",
-    desc: "Teams solve technical questions to activate troop cards and deploy them against opponents in a strategic head-to-head battle.",
+    type: "CHAMPIONSHIPS",
+    desc: "A high-octane two-stage battle blending technical decoding with strategic 1v1 combat.",
+    fullBrief: "Royal Rumble is the flagship event of Colosseum 2026. Stage 1 (Decode or Death) is a high-speed technical battle where teams earn points to survive. Stage 2 (Clash Royale) pits the Top 8 in a 1v1 bracket where answering questions charges weapon cards to deal damage to opponents' health bars.",
+    rules: [
+      "Stage 1: Teams answer technical questions to earn Attack Points and survive elimination. Only the Top 8 advance.",
+      "Stage 2 (Clash Royale): 1v1 bracket showdown using a Card-Based Combat system.",
+      "Card System: Charge Weapon Cards by solving questions (Easy = small charge, Hard = massive charge).",
+      "Combo Attacks: Teams can combine cards for high-damage combo strikes.",
+      "Elimination: Teams are knocked out when their lives (Stage 1) or Health Bar (Stage 2) hit zero.",
+      "Starting Resources: 5 Lives for Stage 1. Finalists receive a Health Bar and 3 Weapon Cards.",
+      "Strict Rules: No phones, AI tools, or internet. Coordinators have final authority."
+    ],
+    registerUrl: "https://docs.google.com/forms/d/e/1FAIpQLSd1lCb2Q28g_qxZW00HGZXY6CGyX7mE_RvRSLGtXnnQmPKIXw/viewform?usp=header",
+    contacts: [
+      { name: "GAURAV", phone: "9902354734" },
+      { name: "VINOD", phone: "7483582091" }
+    ],
   },
   {
     id: 3,
     imageUrl: "/roman-art/ballista.png",
     title: "ROBOWARS",
-    type: "Virtual Robot Combat",
+    type: "CHAMPIONSHIPS",
     desc: "Construct virtual robots by selecting bodies and weapons, then battle in a 1v1 elimination bracket.",
+    fullBrief: "ROBOWARS challenges teams to construct virtual robots by carefully choosing bodies, weapons, and special abilities within a fixed budget, then pit them against opponents in simulated combat. Combining technical knowledge with real-time strategy, this 1v1 elimination showdown by the BEC Robotics & Drone Club rewards both smart planning and tactical thinking.",
+    rules: [
+      "Teams compete in a 1v1 elimination bracket with a fixed budget to build their virtual robot.",
+      "Each robot is built by selecting a Body, Primary Weapon, and Special Weapon within the budget.",
+      "Assembled robots are simulated in combat, with outcomes decided by build and real-time strategy.",
+      "ROBOWARS scores contribute to the cumulative prize pool ranking.",
+      "All team members must be present at the start, and builds must be locked in within the given time.",
+      "No changes or inter-team communication are allowed once the build phase begins.",
+      "Coordinators moderate all combat simulations and their judgment is final."
+    ],
+    registerUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfp0JvD9thvhq0XnWzwuX0uwXADkT43zGpJMidxQ6MmaLnDsQ/viewform",
+    contacts: [
+      { name: "ANKIT", phone: "9964006126" },
+      { name: "ADITYA", phone: "6363874472" }
+    ],
   },
   {
     id: 4,
     imageUrl: "/roman-art/arch.png",
     title: "DOMINO EFFECT",
-    type: "Innovation Challenge",
+    type: "CHAMPIONSHIPS",
     desc: "A progressive challenge facing increasingly powerful 'Boss Encounters'. Solve problems under pressure to defeat the Final Boss.",
+    fullBrief: "Domino Effect is the Innovation Club's flagship event — a high-stakes, level-based competition where teams tackle progressively harder questions and must defeat powerful Boss Challenges at every interval to advance. Testing knowledge, problem-solving under pressure, and strategic thinking, the event culminates in a fierce race to be the first team to conquer the ultimate Final Boss.",
+    rules: [
+      "Teams start at Level 1 and advance by answering questions correctly, facing a harder Boss Challenge at designated intervals.",
+      "Bosses are multi-part problems that must be defeated to progress; skipping is not allowed.",
+      "The Final Boss is the hardest challenge; the first team to defeat it wins the event.",
+      "If no team defeats the Final Boss, the team with the furthest progression is declared the winner.",
+      "Every question has a time limit; answers must be submitted within the stipulated time.",
+      "Boss questions require a full-team consensus answer; failed Boss attempts result in a penalty.",
+      "Scores contribute to the cumulative prize pool ranking, and all coordinator decisions are final."
+    ],
+    registerUrl: "https://docs.google.com/forms/d/e/1FAIpQLSe5B_mnYQx5QNeMkDfWJoqGrqQVZ0n7RsybuC8TotiCccldag/viewform",
+    contacts: [
+      { name: "ABHISHEK", phone: "9353807050" },
+      { name: "VINOD", phone: "7483582091" }
+    ],
   },
   {
     id: 5,
     imageUrl: "/roman-art/mosaic.png",
     title: "FRAME THE CHAOS",
-    type: "Photography Sprint",
+    type: "STAGE EVENTS",
     desc: "A 60-minute photography sprint across the campus to capture beauty, stillness, and meaning in the chaos.",
+    fullBrief: "Frame The Chaos is the Photography & Videography Club's signature challenge where participants roam the college campus to capture one powerful photograph each under three distinct themes — Portrait, Product, and Street Photography. With only 45 minutes on the clock, the event pushes photographers to find beauty and meaning in everyday chaos through sharp vision, strong framing, and authentic storytelling.",
+    rules: [
+      "Time Limit: 45 minutes to complete the entire challenge.",
+      "Mandatory Themes: Must shoot all three: Portrait, Product, and Street Photography.",
+      "One Shot Per Theme: Only one final photograph allowed per theme (3 total).",
+      "Submission Requirements: Submit both the edited final image and its original unedited version for verification.",
+      "Allowed Edits: Exposure correction, colour correction, and cropping only.",
+      "Strictly Prohibited: Heavy manipulation, AI-generated edits, and compositing are not allowed.",
+      "Shot During Event Only: All photographs must be taken within the event duration — no pre-clicked images."
+    ],
+    registerUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfmyZPOcnAQ40F4v4wSyTyntaiS25JJti2iHXgV-scHS8EoPg/viewform",
+    contacts: [
+      { name: "SURAJ", phone: "7483416231" },
+      { name: "ABHIGNYA", phone: "7259304433" }
+    ],
   },
   {
     id: 6,
     imageUrl: "/roman-art/lyre.png",
     title: "BEC'S GOT LATENT",
-    type: "Open Talent Showcase",
+    type: "STAGE EVENTS",
     desc: "An open platform for any student to showcase unique talents—singing, comedy, magic, or instrumental performance.",
+    fullBrief: "BEC's Got Latent is Colosseum's open talent showcase — a vibrant, judgment-free platform welcoming students from every department and year to perform anything from singing and stand-up to beatboxing and magic. With entries open through the website as well as on-the-spot registrations, it's a lively celebration of the diverse and unexpected talent that lives within BEC.",
+    rules: [
+      "Open to all BEC students across every department and year.",
+      "Perform anything: singing, comedy, spoken word, magic, beatboxing, instrumentals, or any unique talent.",
+      "Each act gets a 3 to 5 minute performance window.",
+      "Non-competitive: no judging, no rankings, purely celebratory.",
+      "Registrations must be submitted in advance to the coordinators (limited slots, register early)."
+    ],
+    registerUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf8C3hy3RFMpJH-JMkAbgWAg6jFE2W_U9qZbwsE4TTfq67hhw/viewform",
+    contacts: [
+      { name: "GAURAV", phone: "9902354734" }
+    ],
   },
 ];
+
+
 
 const WreathIcon = ({ className }: { className?: string }) => (
   <svg
@@ -77,7 +148,7 @@ const WreathIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export default function EventCarousel() {
+export default function EventCarousel({ onSelect }: { onSelect?: (card: CardData) => void }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -134,7 +205,14 @@ export default function EventCarousel() {
                 index={index}
                 activeIndex={activeIndex}
                 totalCards={cardData.length}
-                onClick={() => changeSlide(index === activeIndex ? activeIndex + 1 : index)}
+                onClick={() => {
+                  if (index === activeIndex) {
+                    onSelect?.(card);
+                  } else {
+                    changeSlide(index);
+                  }
+                }}
+                onSelect={onSelect}
               />
             ))}
           </motion.div>
@@ -206,7 +284,7 @@ export default function EventCarousel() {
   );
 }
 
-function Card({ card, index, activeIndex, totalCards, onClick }: CardProps) {
+function Card({ card, index, activeIndex, totalCards, onClick, onSelect }: CardProps) {
   let offset = index - activeIndex;
   if (offset > totalCards / 2) {
     offset -= totalCards;
@@ -295,6 +373,20 @@ function Card({ card, index, activeIndex, totalCards, onClick }: CardProps) {
             {card.desc}
           </p>
 
+          {/* CTA for center card */}
+          {isCenter && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-6 flex flex-col items-center gap-2"
+            >
+              <div className="h-px w-8 bg-gold/30" />
+              <span className="font-heading text-[0.6rem] text-gold tracking-[0.3em] uppercase animate-pulse">
+                Click to explore
+              </span>
+            </motion.div>
+          )}
+
           {/* Luxury Signature Line */}
           <div className="absolute bottom-8 w-[60%] h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
         </div>
@@ -305,3 +397,4 @@ function Card({ card, index, activeIndex, totalCards, onClick }: CardProps) {
     </motion.div>
   );
 }
+
