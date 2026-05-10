@@ -72,14 +72,6 @@ export default function EventModal({ isOpen, onClose, event }: EventModalProps) 
                 />
               </motion.div>
               
-              <div className="mt-6 md:mt-8 text-center">
-                <span className="font-heading text-gold/60 tracking-[0.4em] text-[0.55rem] md:text-[0.6rem] uppercase block mb-1 md:mb-2">
-                  Classification
-                </span>
-                <span className="font-heading text-gold tracking-[0.2em] text-[0.65rem] md:text-xs uppercase font-bold border border-gold/20 px-4 py-1.5 rounded-full bg-gold/5">
-                  {event.type}
-                </span>
-              </div>
             </div>
 
             {/* Right Side - Content */}

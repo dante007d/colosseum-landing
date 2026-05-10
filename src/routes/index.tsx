@@ -38,7 +38,8 @@ export const Route = createFileRoute("/")({
 
 const NAV = [
   { href: "#about", label: "About" },
-  { href: "#events", label: "Events" },
+  { href: "#technical", label: "Technical" },
+  { href: "#stage", label: "Stage" },
   { href: "#schedule", label: "Schedule" },
 ];
 
@@ -701,21 +702,36 @@ function Colosseum() {
         </div>
       </section>
 
-      {/* EVENTS SECTION - CAROUSEL */}
-      <section id="events" className="relative bg-ash py-32">
-        <div className="max-w-7xl mx-auto px-6 text-center mb-20">
+      {/* TECHNICAL EVENTS SECTION */}
+      <section id="technical" className="relative bg-ash pt-32 pb-10">
+        <div className="max-w-7xl mx-auto px-6 text-center mb-10">
           <p className="font-heading text-gold tracking-[0.4em] text-[0.7rem] uppercase mb-4">
-            Competitive Arena
+            The Competitive Arena
           </p>
           <h2
             className="font-display font-black text-gold-gradient"
             style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
           >
-            Featured Events
+            Technical Events
           </h2>
         </div>
+        <EventCarousel filterType="TECHNICAL EVENTS" onSelect={handleEventSelect} />
+      </section>
 
-        <EventCarousel onSelect={handleEventSelect} />
+      {/* STAGE EVENTS SECTION */}
+      <section id="stage" className="relative bg-ash pt-10 pb-32">
+        <div className="max-w-7xl mx-auto px-6 text-center mb-10">
+          <p className="font-heading text-gold tracking-[0.4em] text-[0.7rem] uppercase mb-4">
+            The Spotlight Awaits
+          </p>
+          <h2
+            className="font-display font-black text-gold-gradient"
+            style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
+          >
+            Stage Events
+          </h2>
+        </div>
+        <EventCarousel filterType="STAGE EVENTS" onSelect={handleEventSelect} />
       </section>
 
       <ScheduleSection />

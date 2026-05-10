@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, PanInfo } from "framer-motion";
+import { motion, PanInfo, AnimatePresence } from "framer-motion";
 
 interface CardData {
   id: number;
@@ -26,7 +26,7 @@ const cardData: CardData[] = [
     id: 1,
     imageUrl: "/roman-art/helmet.png",
     title: "ROYAL RUMBLE",
-    type: "CHAMPIONSHIPS",
+    type: "TECHNICAL EVENTS",
     desc: "A high-octane two-stage battle blending technical decoding with strategic 1v1 combat.",
     fullBrief: "Royal Rumble is the flagship event of Colosseum 2026. Stage 1 (Decode or Death) is a high-speed technical battle where teams earn points to survive. Stage 2 (Clash Royale) pits the Top 8 in a 1v1 bracket where answering questions charges weapon cards to deal damage to opponents' health bars.",
     rules: [
@@ -48,7 +48,7 @@ const cardData: CardData[] = [
     id: 3,
     imageUrl: "/roman-art/ballista.png",
     title: "ROBOWARS",
-    type: "CHAMPIONSHIPS",
+    type: "TECHNICAL EVENTS",
     desc: "Construct virtual robots by selecting bodies and weapons, then battle in a 1v1 elimination bracket.",
     fullBrief: "ROBOWARS challenges teams to construct virtual robots by carefully choosing bodies, weapons, and special abilities within a fixed budget, then pit them against opponents in simulated combat. Combining technical knowledge with real-time strategy, this 1v1 elimination showdown by the BEC Robotics & Drone Club rewards both smart planning and tactical thinking.",
     rules: [
@@ -70,7 +70,7 @@ const cardData: CardData[] = [
     id: 4,
     imageUrl: "/roman-art/arch.png",
     title: "DOMINO EFFECT",
-    type: "CHAMPIONSHIPS",
+    type: "TECHNICAL EVENTS",
     desc: "A progressive challenge facing increasingly powerful 'Boss Encounters'. Solve problems under pressure to defeat the Final Boss.",
     fullBrief: "Domino Effect is the Innovation Club's flagship event — a high-stakes, level-based competition where teams tackle progressively harder questions and must defeat powerful Boss Challenges at every interval to advance. Testing knowledge, problem-solving under pressure, and strategic thinking, the event culminates in a fierce race to be the first team to conquer the ultimate Final Boss.",
     rules: [
@@ -148,18 +148,28 @@ const WreathIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export default function EventCarousel({ onSelect }: { onSelect?: (card: CardData) => void }) {
+export default function EventCarousel({ 
+  onSelect, 
+  filterType 
+}: { 
+  onSelect?: (card: CardData) => void;
+  filterType?: string;
+}) {
+  const filteredData = filterType 
+    ? cardData.filter(c => c.type === filterType) 
+    : cardData;
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const autoplayDelay = 5000;
 
   const goToNext = () => {
-    setActiveIndex((prev) => (prev + 1) % cardData.length);
+    setActiveIndex((prev) => (prev + 1) % filteredData.length);
   };
 
   useEffect(() => {
-    if (!isPaused) {
+    if (!isPaused && filteredData.length > 1) {
       autoplayIntervalRef.current = setInterval(goToNext, autoplayDelay);
     }
     return () => {
@@ -167,10 +177,10 @@ export default function EventCarousel({ onSelect }: { onSelect?: (card: CardData
         clearInterval(autoplayIntervalRef.current);
       }
     };
-  }, [isPaused, activeIndex]);
+  }, [isPaused, activeIndex, filteredData.length]);
 
   const changeSlide = (newIndex: number) => {
-    const newSafeIndex = (newIndex + cardData.length) % cardData.length;
+    const newSafeIndex = (newIndex + filteredData.length) % filteredData.length;
     setActiveIndex(newSafeIndex);
   };
 
@@ -191,20 +201,41 @@ export default function EventCarousel({ onSelect }: { onSelect?: (card: CardData
         onMouseLeave={() => setIsPaused(false)}
       >
         <div className="relative w-full h-[500px] md:h-[650px] flex items-center justify-center pt-12">
+          {/* Synchronized Background Classification Track */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden h-[300px] top-1/2 -translate-y-1/2">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, x: 100, filter: "blur(20px)" }}
+                animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, x: -100, filter: "blur(20px)" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="whitespace-nowrap flex flex-col items-center justify-center"
+              >
+                <span className="font-display text-[8vw] md:text-[12vw] leading-none text-white/[0.03] uppercase tracking-[0.2em] font-black select-none">
+                  {filteredData[activeIndex].type.split(" ")[0]}
+                </span>
+                <span className="font-display text-[4vw] md:text-[6vw] leading-none text-gold/[0.05] uppercase tracking-[1em] -mt-[2vw] select-none">
+                  {filteredData[activeIndex].type.split(" ").slice(1).join(" ")}
+                </span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
           <motion.div
-            className="w-full h-full flex items-center justify-center relative"
+            className="w-full h-full flex items-center justify-center relative z-10"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.2}
             onDragEnd={onDragEnd}
           >
-            {cardData.map((card, index) => (
+            {filteredData.map((card, index) => (
               <Card
                 key={card.id}
                 card={card}
                 index={index}
                 activeIndex={activeIndex}
-                totalCards={cardData.length}
+                totalCards={filteredData.length}
                 onClick={() => {
                   if (index === activeIndex) {
                     onSelect?.(card);
@@ -238,7 +269,7 @@ export default function EventCarousel({ onSelect }: { onSelect?: (card: CardData
           </button>
 
           <div className="flex items-center justify-center gap-4">
-            {cardData.map((_, index) => (
+            {filteredData.map((_, index) => (
               <button
                 key={index}
                 onClick={() => changeSlide(index)}
