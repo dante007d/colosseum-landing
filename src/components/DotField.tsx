@@ -67,7 +67,7 @@ const DotField = memo(
       const ctx = canvas.getContext("2d", { alpha: true });
       if (!ctx) return;
 
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = window.devicePixelRatio || 1;
       let resizeTimer: NodeJS.Timeout;
 
       function doResize() {
@@ -267,12 +267,7 @@ const DotField = memo(
       <div className={`absolute inset-0 pointer-events-none ${className}`} {...rest}>
         <canvas
           ref={canvasRef}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-          }}
+          className="absolute inset-0 w-full h-full"
         />
         <svg
           style={{

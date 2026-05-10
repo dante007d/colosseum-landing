@@ -15,6 +15,7 @@ import Magnetic from "../components/Magnetic";
 import Lenis from "lenis";
 import EventCarousel from "../components/EventCarousel";
 import EventModal from "../components/EventModal";
+import { ScrollText } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Colosseum,
@@ -38,6 +39,7 @@ export const Route = createFileRoute("/")({
 const NAV = [
   { href: "#about", label: "About" },
   { href: "#events", label: "Events" },
+  { href: "#schedule", label: "Schedule" },
 ];
 
 const Wreath = ({ className = "" }: { className?: string }) => (
@@ -163,6 +165,114 @@ function FloatingArtifacts({ scrollY }: { scrollY: MotionValue<number> }) {
         className="absolute top-[60%] -right-20 w-80 md:w-[32rem] opacity-10 filter blur-[1px]"
       />
     </div>
+  );
+}
+
+function ScheduleSection() {
+  const [activeDay, setActiveDay] = useState(1);
+  const schedule = {
+    day1: [
+      { time: "09:00 AM", type: "General", title: "Inauguration Ceremony", location: "Main Auditorium" },
+      { time: "11:00 AM", type: "Technical", title: "Royal Rumble Prelims", location: "Arena A" },
+      { time: "02:00 PM", type: "Technical", title: "Robowars: Round 1", location: "Arena B" },
+      { time: "04:00 PM", type: "Cultural", title: "Frame the Chaos: Briefing", location: "Design Studio" },
+      { time: "06:00 PM", type: "General", title: "Networking Night", location: "Campus Plaza" },
+    ],
+    day2: [
+      { time: "10:00 AM", type: "Technical", title: "Clash Royal Finals", location: "Arena A" },
+      { time: "12:00 PM", type: "Technical", title: "Robowars: Grand Finale", location: "Arena B" },
+      { time: "03:00 PM", type: "Cultural", title: "BEC's Got Latent", location: "Open Air Theater" },
+      { time: "06:00 PM", type: "General", title: "Award Ceremony", location: "Main Auditorium" },
+      { time: "08:00 PM", type: "Cultural", title: "Closing Concert", location: "Arena A" },
+    ],
+  };
+
+  const currentSchedule = activeDay === 1 ? schedule.day1 : schedule.day2;
+
+  return (
+    <section id="schedule" className="relative py-40 px-6 bg-ash/50 overflow-hidden">
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/black-linen.png')]" />
+      
+      <div className="max-w-5xl mx-auto relative z-10">
+        <div className="text-center mb-20 reveal">
+          <span className="font-heading text-gold/60 tracking-[0.4em] text-[0.6rem] uppercase block mb-4">The Chronology</span>
+          <h2 className="font-display text-4xl md:text-6xl text-gold-gradient mb-8 tracking-widest uppercase">Event Schedule</h2>
+          
+          {/* Day Toggles */}
+          <div className="flex justify-center gap-4 mt-12">
+            {[1, 2].map((day) => (
+              <button
+                key={day}
+                onClick={() => setActiveDay(day)}
+                className={`px-10 py-3 font-heading text-xs tracking-[0.3em] uppercase transition-all duration-500 border ${
+                  activeDay === day 
+                    ? "bg-gold text-ash border-gold shadow-[0_0_20px_rgba(212,175,55,0.3)]" 
+                    : "text-gold/60 border-gold/20 hover:border-gold/50"
+                }`}
+              >
+                Day 0{day}
+              </button>
+            ))}
+          </div>
+          <p className="mt-6 font-body italic text-parchment/40 text-sm">
+            {activeDay === 1 ? "Saturday, May 16, 2026" : "Sunday, May 17, 2026"}
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeDay}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="grid grid-cols-1 gap-4"
+            >
+              {currentSchedule.map((item, idx) => (
+                <div 
+                  key={idx}
+                  className="group flex flex-col md:flex-row items-center gap-6 p-6 md:p-8 bg-gold/[0.03] border border-gold/10 hover:border-gold/30 transition-all hover:bg-gold/[0.07] relative overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-1 h-full bg-gold/0 group-hover:bg-gold transition-all duration-500" />
+                  
+                  {/* Time */}
+                  <div className="w-full md:w-40 shrink-0">
+                    <span className="font-display text-xl text-gold tracking-tighter block mb-1">{item.time}</span>
+                    <span className={`text-[0.6rem] font-heading tracking-widest uppercase px-2 py-0.5 border rounded-full ${
+                      item.type === "Technical" ? "text-crimson border-crimson/30" : 
+                      item.type === "Cultural" ? "text-blue-400 border-blue-400/30" : 
+                      "text-gold/40 border-gold/20"
+                    }`}>
+                      {item.type}
+                    </span>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="hidden md:block h-12 w-px bg-gold/10" />
+
+                  {/* Details */}
+                  <div className="flex-grow text-center md:text-left">
+                    <h4 className="font-display text-lg md:text-xl text-parchment tracking-wide uppercase mb-1">
+                      {item.title}
+                    </h4>
+                    <p className="font-body italic text-gold/50 text-sm flex items-center justify-center md:justify-start gap-2">
+                      <span className="w-1 h-1 rounded-full bg-gold/30" />
+                      {item.location}
+                    </p>
+                  </div>
+
+                  {/* Icon/Decoration */}
+                  <div className="opacity-10 group-hover:opacity-30 transition-opacity absolute right-4 top-1/2 -translate-y-1/2 hidden md:block">
+                    <ScrollText size={60} className="text-gold" />
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -448,27 +558,17 @@ function Colosseum() {
           >
             16th & 17th May 2026 · BEC Creative Spectrum
           </p>
-          <div className="py-4 md:py-8 overflow-hidden">
+          <div 
+            className="py-4 md:py-8 flex justify-center items-center"
+          >
             <h1
-              className="font-display text-gold-gradient leading-[1.1] pb-4 px-2 flex justify-center flex-wrap gap-x-1 md:gap-x-4"
-              style={{ fontSize: "clamp(2.8rem, 15vw, 12rem)" }}
+              className="font-display text-gold leading-[1.1] pb-4 px-2 flex justify-center items-center flex-nowrap gap-0 md:gap-2 relative z-[50]"
+              style={{ 
+                fontSize: "min(13vw, 12rem)",
+                textShadow: "0 0 20px rgba(212, 175, 55, 0.5)",
+              }}
             >
-              {"COLOSSEUM".split("").map((char, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0, y: 100, scaleY: 2, scaleX: 0.5 }}
-                  animate={{ opacity: 1, y: 0, scaleY: 1, scaleX: 1 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 0.3 + i * 0.04,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="inline-block"
-                  style={{ transformOrigin: "50% 100%" }}
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
-              ))}
+              COLOSSEUM
             </h1>
           </div>
           <Countdown />
@@ -505,13 +605,13 @@ function Colosseum() {
       {/* QUOTE BANNER */}
       <section className="relative py-40 px-6 overflow-hidden bg-ash">
         <DotField
-          dotRadius={2.5}
+          dotRadius={3}
           dotSpacing={16}
           glowRadius={220}
-          bulgeStrength={100}
+          bulgeStrength={120}
           sparkle={true}
-          gradientFrom="rgba(212, 175, 55, 0.6)"
-          gradientTo="rgba(212, 175, 55, 0.2)"
+          gradientFrom="rgba(212, 175, 55, 0.8)"
+          gradientTo="rgba(212, 175, 55, 0.3)"
         />
         <div className="relative z-10 max-w-5xl mx-auto text-center">
           <motion.div
@@ -617,6 +717,8 @@ function Colosseum() {
 
         <EventCarousel onSelect={handleEventSelect} />
       </section>
+
+      <ScheduleSection />
 
       <section className="relative py-40 px-6 bg-ash overflow-hidden border-t border-gold/10">
         <div className="marble-texture" />
