@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -15,7 +15,7 @@ import Magnetic from "../components/Magnetic";
 import Lenis from "lenis";
 import EventCarousel from "../components/EventCarousel";
 import EventModal from "../components/EventModal";
-import { ScrollText } from "lucide-react";
+import { ScrollText, Phone } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Colosseum,
@@ -334,6 +334,18 @@ function Countdown() {
       <TimeUnit value={timeLeft.seconds} label="Secs" />
     </motion.div>
   );
+}
+
+interface CardData {
+  id: number;
+  imageUrl: string;
+  title: string;
+  type: string;
+  desc: string;
+  fullBrief: string;
+  rules: string[];
+  registerUrl: string;
+  contacts: { name: string; phone: string }[];
 }
 
 function Colosseum() {
@@ -732,6 +744,32 @@ function Colosseum() {
           </h2>
         </div>
         <EventCarousel filterType="STAGE EVENTS" onSelect={handleEventSelect} />
+      </section>
+
+      <section className="relative py-40 px-6 bg-ash overflow-hidden border-t border-gold/10">
+        <div className="marble-texture opacity-[0.03]" />
+        <div className="max-w-5xl mx-auto text-center relative z-20">
+          <p className="font-heading text-[#d4af37] tracking-[0.6em] text-[0.8rem] uppercase mb-12 font-bold">
+            The Gladiators' Call
+          </p>
+          <h2
+            className="font-display text-gold-gradient leading-tight mb-16"
+            style={{ fontSize: "clamp(2.5rem, 10vw, 7rem)", letterSpacing: "0.1em" }}
+          >
+            <span className="font-heading text-[0.35em] md:text-[0.3em] text-[#d4af37] tracking-[0.5em] block mb-4 font-black uppercase drop-shadow-[0_4px_15px_rgba(0,0,0,0.9)]">
+              THIS IS THE CALL FOR GLADIATORS
+            </span>
+            <span className="font-heading text-[0.2em] md:text-[0.18em] text-[#d4af37] tracking-[0.7em] block mb-10 md:mb-14 font-bold uppercase italic drop-shadow-md">
+              BE THE ONE TO SAY
+            </span>
+            "VENI, VIDI, VICI"
+          </h2>
+          <div className="h-px w-24 bg-[#d4af37]/40 mx-auto mb-12 shadow-[0_0_10px_rgba(212,175,55,0.5)]" />
+          <p className="font-heading text-parchment/90 tracking-[0.4em] text-[0.8rem] uppercase">
+            Basaveshwar Engineering College <br />
+            <span className="text-[#d4af37]">BEC Creative Spectrum · MMXXVI</span>
+          </p>
+        </div>
       </section>
 
       <ScheduleSection />
