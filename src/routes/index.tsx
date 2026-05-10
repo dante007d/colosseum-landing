@@ -736,23 +736,53 @@ function Colosseum() {
 
       <ScheduleSection />
 
-      <section className="relative py-40 px-6 bg-ash overflow-hidden border-t border-gold/10">
-        <div className="marble-texture" />
-        <div className="max-w-4xl mx-auto text-center reveal">
-          <p className="font-heading text-gold/40 tracking-[0.6em] text-[0.65rem] uppercase mb-12">
-            The Convergence Awaits
-          </p>
-          <h2
-            className="font-display text-gold-gradient leading-tight mb-16"
-            style={{ fontSize: "clamp(2rem, 8vw, 5.5rem)", letterSpacing: "0.1em" }}
-          >
-            SOMETHING BIG <br /> IS COMING
-          </h2>
-          <div className="h-px w-24 bg-gold/30 mx-auto mb-12" />
-          <p className="font-heading text-parchment/40 tracking-[0.4em] text-[0.6rem] uppercase">
-            Basaveshwar Engineering College <br />
-            <span className="text-gold/50">BEC Creative Spectrum · MMXXVI</span>
-          </p>
+      <section className="relative py-24 px-6 bg-ash overflow-hidden border-t border-gold/10">
+        <div className="marble-texture opacity-[0.02]" />
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 relative z-10">
+          
+          {/* Left Footer */}
+          <div className="text-center md:text-left order-2 md:order-1">
+            <h3 className="font-display text-gold/80 text-xl md:text-2xl tracking-[0.2em] mb-2 uppercase">
+              COLOSSEUM 2026
+            </h3>
+            <p className="font-heading text-gold/40 text-[0.65rem] tracking-[0.4em] uppercase">
+              Basaveshwar Engineering College
+            </p>
+          </div>
+
+          {/* Center Decoration */}
+          <div className="order-1 md:order-2">
+            <Wreath className="w-16 h-16 text-gold/10" />
+          </div>
+
+          {/* Right Footer */}
+          <div className="text-center md:text-right order-3">
+            <p className="font-heading text-parchment/60 text-[0.7rem] tracking-[0.3em] uppercase mb-4 leading-relaxed">
+              BEC Campus, Vidyagiri <br />
+              Bagalkot, Karnataka
+            </p>
+            <a 
+              href="tel:7483416231"
+              className="group flex items-center justify-center md:justify-end gap-3 text-gold hover:text-parchment transition-colors"
+            >
+              <div className="flex flex-col items-end">
+                <span className="font-heading text-[0.55rem] tracking-[0.4em] uppercase text-gold/40 group-hover:text-gold/60 transition-colors">
+                  Helpline
+                </span>
+                <span className="font-body text-xl tracking-widest font-bold">
+                  7483416231
+                </span>
+              </div>
+              <div className="w-10 h-10 rounded-full border border-gold/20 flex items-center justify-center group-hover:bg-gold group-hover:text-ash transition-all">
+                <Phone size={16} />
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-gold/5 flex flex-col md:flex-row justify-between items-center gap-4 text-gold/20 font-heading text-[0.5rem] tracking-[0.5em] uppercase">
+          <span>MMXXVI · BEC Creative Spectrum</span>
+          <span>Incurred in Engineering · Dazzled in Creativity</span>
         </div>
       </section>
 
