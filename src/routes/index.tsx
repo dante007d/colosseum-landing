@@ -13,9 +13,10 @@ import ScrollFloat from "../components/ScrollFloat";
 import DotField from "../components/DotField";
 import Magnetic from "../components/Magnetic";
 import Lenis from "lenis";
-import EventCarousel from "../components/EventCarousel";
+import EventCarousel, { cardData } from "../components/EventCarousel";
 import EventModal from "../components/EventModal";
-import { ScrollText, Phone } from "lucide-react";
+import Logomarquee from "../components/Logomarquee";
+import { ScrollText, Phone, Instagram, Mail } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Colosseum,
@@ -171,6 +172,16 @@ function FloatingArtifacts({ scrollY }: { scrollY: MotionValue<number> }) {
 
 function ScheduleSection() {
   const [activeDay, setActiveDay] = useState(1);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const lineHeight = useTransform(scrollYProgress, [0.1, 0.5], ["0%", "100%"]);
+  const lineOpacity = useTransform(scrollYProgress, [0.1, 0.2, 0.8, 0.9], [0, 1, 1, 0]);
+
   const schedule = {
     day1: [
       { 
@@ -317,7 +328,7 @@ function ScheduleSection() {
   const currentSchedule = activeDay === 1 ? schedule.day1 : schedule.day2;
 
   return (
-    <section id="schedule" className="relative py-40 px-6 bg-ash/50 overflow-hidden">
+    <section id="schedule" ref={containerRef} className="relative py-40 px-6 bg-ash/50 overflow-hidden">
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/black-linen.png')]" />
       
       <div className="max-w-5xl mx-auto relative z-10">
@@ -346,33 +357,70 @@ function ScheduleSection() {
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="relative">
+          {/* Vertical Timeline Line - Base */}
+          <div className="absolute left-8 md:left-[80px] top-0 bottom-0 w-px bg-gold/5 hidden md:block" />
+          
+          {/* Vertical Timeline Line - Active/Scrollable */}
+          <motion.div 
+            style={{ height: lineHeight, opacity: lineOpacity }}
+            className="absolute left-8 md:left-[80px] top-0 w-px bg-gradient-to-b from-gold/50 via-gold to-gold/50 hidden md:block origin-top shadow-[0_0_15px_rgba(212,175,55,0.5)] z-0" 
+          />
+          
           <AnimatePresence mode="wait">
             <motion.div
               key={activeDay}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="grid grid-cols-1 gap-4"
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={{
+                visible: {
+                  transition: {
+                    staggerChildren: 0.1,
+                  },
+                },
+              }}
+              className="grid grid-cols-1 gap-6 relative"
             >
               {currentSchedule.map((item, idx) => {
                 const isBreak = item.type === "Break";
+                const matchingEvent = cardData.find(e => e.title.toUpperCase() === item.title.toUpperCase());
+                
                 return (
-                  <div 
+                  <motion.div 
                     key={idx}
+                    variants={{
+                      hidden: { opacity: 0, x: -30, filter: "blur(10px)" },
+                      visible: { opacity: 1, x: 0, filter: "blur(0px)" },
+                      exit: { opacity: 0, x: 30, filter: "blur(10px)" }
+                    }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    whileInView="visible"
+                    initial="hidden"
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    onClick={() => !isBreak && matchingEvent && handleEventSelect(matchingEvent)}
                     className={`group flex flex-col md:grid md:grid-cols-[160px_1fr_auto] items-start gap-6 p-6 md:p-8 transition-all relative overflow-hidden ${
                       isBreak 
                         ? "bg-gold/[0.01] border border-dashed border-gold/10 opacity-60" 
                         : "bg-gold/[0.03] border border-gold/10 hover:border-gold/30 hover:bg-gold/[0.07] shadow-sm hover:shadow-gold/5"
-                    }`}
+                    } ${!isBreak && matchingEvent ? "cursor-pointer" : ""}`}
                   >
                     {!isBreak && (
                       <div className="absolute top-0 left-0 w-1 h-full bg-gold/0 group-hover:bg-gold transition-all duration-500" />
                     )}
                     
-                    {/* Time */}
-                    <div className="w-full shrink-0 flex flex-col gap-1">
+                    {/* Time & Connectivity Dot */}
+                    <div className="w-full shrink-0 flex flex-col gap-1 relative">
+                      {/* Roman Dot */}
+                      <motion.div 
+                        initial={{ scale: 0 }}
+                        whileInView={{ scale: 1 }}
+                        transition={{ delay: 0.3 + (idx * 0.05), type: "spring" }}
+                        className="absolute -left-[85px] top-1/2 -translate-y-1/2 w-3 h-3 bg-ash border border-gold/40 rounded-full hidden md:flex items-center justify-center z-20"
+                      >
+                        <div className="w-1 h-1 bg-gold rounded-full" />
+                      </motion.div>
+
                       <span className="font-display text-lg text-gold tracking-tighter block leading-none">{item.time}</span>
                       <span className="font-heading text-[0.6rem] text-gold/40 tracking-widest uppercase">
                         {item.duration}
@@ -381,15 +429,22 @@ function ScheduleSection() {
 
                     {/* Details */}
                     <div className="flex-grow text-left">
-                      <span className={`text-[0.6rem] font-heading tracking-[0.2em] uppercase mb-2 block ${
-                        ["Technical", "Tech Combat", "Combat", "Challenge"].some(t => item.type?.includes(t)) ? "text-crimson" : 
-                        ["Cultural", "Talent", "Finale", "Performance", "Session"].some(t => item.type?.includes(t)) ? "text-blue-400" : 
-                        item.type === "Ceremony" ? "text-gold" :
-                        "text-gold/40"
-                      }`}>
-                        {item.type}
-                      </span>
-                      <h4 className={`font-display text-xl text-parchment tracking-wide uppercase mb-2 ${isBreak ? "italic text-parchment/40" : ""}`}>
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className={`text-[0.6rem] font-heading tracking-[0.2em] uppercase block ${
+                          ["Technical", "Tech Combat", "Combat", "Challenge"].some(t => item.type?.includes(t)) ? "text-crimson" : 
+                          ["Cultural", "Talent", "Finale", "Performance", "Session"].some(t => item.type?.includes(t)) ? "text-blue-400" : 
+                          item.type === "Ceremony" ? "text-gold" :
+                          "text-gold/40"
+                        }`}>
+                          {item.type}
+                        </span>
+                        {!isBreak && matchingEvent && (
+                          <span className="text-[0.5rem] font-heading text-gold animate-pulse tracking-[0.1em] uppercase border border-gold/20 px-1.5 rounded-sm bg-gold/5">
+                            Click for Details
+                          </span>
+                        )}
+                      </div>
+                      <h4 className={`font-display text-xl md:text-2xl text-parchment tracking-wide uppercase mb-2 ${isBreak ? "italic text-parchment/40" : ""}`}>
                         {item.title}
                       </h4>
                       {item.desc && (
@@ -406,31 +461,40 @@ function ScheduleSection() {
                     </div>
 
                     {/* Meta Pills */}
-                    <div className="flex flex-wrap md:flex-col gap-2 items-end mt-4 md:mt-0">
+                    <div className="flex flex-wrap md:flex-col gap-2 items-start md:items-end mt-4 md:mt-0">
                       {item.players && (
-                        <span className="text-[0.55rem] font-heading tracking-widest uppercase px-3 py-1 bg-blue-500/10 text-blue-300 border border-blue-500/20 rounded-full">
-                          {item.players}
-                        </span>
+                        <div className="flex flex-col items-end">
+                          <span className="text-[0.5rem] font-heading text-gold/30 uppercase tracking-widest mb-1">Squad</span>
+                          <span className="text-[0.65rem] font-heading tracking-widest uppercase px-3 py-1 bg-blue-500/10 text-blue-300 border border-blue-500/20 rounded-sm">
+                            {item.players}
+                          </span>
+                        </div>
                       )}
                       {item.fee && (
-                        <span className="text-[0.55rem] font-heading tracking-widest uppercase px-3 py-1 bg-gold/10 text-gold border border-gold/20 rounded-full">
-                          Fee: {item.fee}
-                        </span>
+                        <div className="flex flex-col items-end">
+                          <span className="text-[0.5rem] font-heading text-gold/30 uppercase tracking-widest mb-1">Entry</span>
+                          <span className="text-[0.65rem] font-heading tracking-widest uppercase px-3 py-1 bg-gold/10 text-gold border border-gold/20 rounded-sm">
+                            {item.fee}
+                          </span>
+                        </div>
                       )}
                       {item.prize && (
-                        <span className="text-[0.55rem] font-heading tracking-widest uppercase px-3 py-1 bg-crimson/10 text-crimson border border-crimson/20 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.1)]">
-                          {item.prize}
-                        </span>
+                        <div className="flex flex-col items-end">
+                          <span className="text-[0.5rem] font-heading text-gold/30 uppercase tracking-widest mb-1">Rewards</span>
+                          <span className="text-[0.65rem] font-heading tracking-widest uppercase px-3 py-1 bg-crimson/10 text-crimson border border-crimson/20 rounded-sm shadow-[0_0_10px_rgba(220,38,38,0.1)]">
+                            {item.prize}
+                          </span>
+                        </div>
                       )}
                     </div>
 
                     {/* Icon/Decoration */}
                     {!isBreak && (
-                      <div className="opacity-[0.03] group-hover:opacity-[0.08] transition-opacity absolute -right-4 -bottom-4 hidden md:block">
-                        <ScrollText size={100} className="text-gold" />
+                      <div className="opacity-[0.03] group-hover:opacity-[0.1] transition-opacity absolute -right-4 -bottom-4 hidden md:block">
+                        <ScrollText size={120} className="text-gold" />
                       </div>
                     )}
-                  </div>
+                  </motion.div>
                 );
               })}
             </motion.div>
@@ -950,8 +1014,14 @@ function Colosseum() {
 
       <section className="relative py-24 px-6 bg-ash overflow-hidden border-t border-gold/10">
         <div className="marble-texture opacity-[0.02]" />
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 relative z-10">
-          
+        
+        <div className="max-w-7xl mx-auto text-center mb-16 relative z-10">
+          <span className="font-heading text-gold/40 tracking-[0.4em] text-[0.6rem] uppercase block mb-4">The Pantheons</span>
+          <h3 className="font-display text-2xl md:text-4xl text-gold-gradient mb-12 tracking-widest uppercase">Our Featured Events</h3>
+          <Logomarquee />
+        </div>
+
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 relative z-10 pt-20 border-t border-gold/5">
           {/* Left Footer */}
           <div className="text-center md:text-left order-2 md:order-1">
             <h3 className="font-display text-gold/80 text-xl md:text-2xl tracking-[0.2em] mb-2 uppercase">
@@ -960,18 +1030,22 @@ function Colosseum() {
             <p className="font-heading text-gold/40 text-[0.65rem] tracking-[0.4em] uppercase">
               Basaveshwar Engineering College
             </p>
+            <div className="flex items-center justify-center md:justify-start gap-6 mt-6">
+              <a href="#" className="text-gold/40 hover:text-gold transition-colors"><Instagram size={18} /></a>
+              <a href="mailto:spectrum@becbgk.edu" className="text-gold/40 hover:text-gold transition-colors"><Mail size={18} /></a>
+            </div>
           </div>
 
           {/* Center Decoration */}
           <div className="order-1 md:order-2">
-            <Wreath className="w-16 h-16 text-gold/10" />
+            <Wreath className="w-20 h-20 text-gold/10" />
           </div>
 
           {/* Right Footer */}
           <div className="text-center md:text-right order-3">
             <p className="font-heading text-parchment/60 text-[0.7rem] tracking-[0.3em] uppercase mb-4 leading-relaxed">
               BEC Campus, Vidyagiri <br />
-              Bagalkot, Karnataka
+              Bagalkot, Karnataka — 587102
             </p>
             <a 
               href="tel:7483416231"
@@ -992,9 +1066,9 @@ function Colosseum() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-gold/5 flex flex-col md:flex-row justify-between items-center gap-4 text-gold/20 font-heading text-[0.5rem] tracking-[0.5em] uppercase">
+        <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-gold/5 flex flex-col md:flex-row justify-between items-center gap-4 text-gold/10 font-heading text-[0.5rem] tracking-[0.5em] uppercase">
           <span>MMXXVI · BEC Creative Spectrum</span>
-          <span>Incurred in Engineering · Dazzled in Creativity</span>
+          <span>Designed for the First Student-Led Association in BEC History</span>
         </div>
       </section>
 

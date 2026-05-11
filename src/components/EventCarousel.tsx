@@ -25,7 +25,7 @@ interface CardProps {
   onSelect?: (card: CardData) => void;
 }
 
-const cardData: CardData[] = [
+export const cardData: CardData[] = [
   {
     id: 1,
     imageUrl: "/roman-art/helmet.png",

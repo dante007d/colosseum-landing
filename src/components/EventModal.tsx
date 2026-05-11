@@ -128,9 +128,11 @@ export default function EventModal({ isOpen, onClose, event }: EventModalProps) 
 
                 {/* Brief Section */}
                 <div className="mb-8 md:mb-12">
-                  <div className="flex items-center gap-3 mb-4 text-gold/80">
-                    <Info size={16} className="md:w-[18px]" />
-                    <h3 className="font-heading text-[0.65rem] md:text-[0.7rem] tracking-[0.3em] uppercase font-bold">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 bg-gold/10 rounded-sm border border-gold/20">
+                      <Info size={18} className="text-gold" />
+                    </div>
+                    <h3 className="font-heading text-xs md:text-sm tracking-[0.4em] uppercase font-bold text-gold-gradient">
                       The Vision
                     </h3>
                   </div>
@@ -141,9 +143,11 @@ export default function EventModal({ isOpen, onClose, event }: EventModalProps) 
 
                 {/* Rules Section */}
                 <div className="mb-8 md:mb-12">
-                  <div className="flex items-center gap-3 mb-4 text-gold/80">
-                    <ScrollText size={16} className="md:w-[18px]" />
-                    <h3 className="font-heading text-[0.65rem] md:text-[0.7rem] tracking-[0.3em] uppercase font-bold">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 bg-gold/10 rounded-sm border border-gold/20">
+                      <ScrollText size={18} className="text-gold" />
+                    </div>
+                    <h3 className="font-heading text-xs md:text-sm tracking-[0.4em] uppercase font-bold text-gold-gradient">
                       Protocols
                     </h3>
                   </div>
@@ -161,9 +165,11 @@ export default function EventModal({ isOpen, onClose, event }: EventModalProps) 
 
                 {/* Contacts Section */}
                 <div className="mb-10 md:mb-14">
-                  <div className="flex items-center gap-3 mb-5 text-gold/80">
-                    <Phone size={16} className="md:w-[18px]" />
-                    <h3 className="font-heading text-[0.65rem] md:text-[0.7rem] tracking-[0.3em] uppercase font-bold">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 bg-gold/10 rounded-sm border border-gold/20">
+                      <Phone size={18} className="text-gold" />
+                    </div>
+                    <h3 className="font-heading text-xs md:text-sm tracking-[0.4em] uppercase font-bold text-gold-gradient">
                       Coordinators
                     </h3>
                   </div>
