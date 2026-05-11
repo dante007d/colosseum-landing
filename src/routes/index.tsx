@@ -412,6 +412,9 @@ function ScheduleSection({ onSelect }: { onSelect: (event: any) => void }) {
           <span className="font-heading text-[0.6rem] tracking-[0.4em] uppercase">Event Timeline</span>
           <div className="h-px w-12 bg-gold/20" />
         </div>
+        <p className="font-heading text-gold text-[0.7rem] tracking-[0.5em] uppercase -mt-4 animate-pulse">
+          — Click on any event to register —
+        </p>
 
         {/* Day Toggles */}
         <div className="flex justify-center gap-4 mt-12">
@@ -857,6 +860,11 @@ function Colosseum() {
                 alt="BEC Creative Spectrum"
                 className="w-full h-full object-cover relative z-10 transition-transform duration-1000 group-hover:scale-105"
               />
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 w-full text-center">
+                <span className="font-heading text-[0.5rem] text-gold tracking-[0.4em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-700 bg-ash/80 py-2 px-4 backdrop-blur-sm border-y border-gold/10">
+                  Click to Register
+                </span>
+              </div>
             </motion.div>
           </TsunamiEffect>
         </div>
@@ -874,6 +882,9 @@ function Colosseum() {
           >
             Technical Events
           </h2>
+          <p className="font-heading text-gold text-[0.7rem] tracking-[0.5em] uppercase mt-6 animate-pulse">
+            — Click on any event to register —
+          </p>
         </div>
         <EventCarousel filterType="TECHNICAL EVENTS" onSelect={handleEventSelect} />
       </section>
@@ -890,6 +901,9 @@ function Colosseum() {
           >
             Stage Events
           </h2>
+          <p className="font-heading text-gold text-[0.7rem] tracking-[0.5em] uppercase mt-6 animate-pulse">
+            — Click on any event to register —
+          </p>
         </div>
         <EventCarousel filterType="STAGE EVENTS" onSelect={handleEventSelect} />
       </section>

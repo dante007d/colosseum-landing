@@ -213,7 +213,7 @@ export default function EventCarousel({
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        <div className="relative w-full h-[500px] md:h-[650px] flex items-center justify-center pt-12">
+        <div className="relative w-full h-[600px] md:h-[800px] flex items-center justify-center pt-12">
           {/* Synchronized Background Classification Track */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden h-[300px] top-1/2 -translate-y-1/2">
             <AnimatePresence mode="wait">
@@ -379,7 +379,7 @@ function Card({ card, index, activeIndex, totalCards, onClick, onSelect }: CardP
         <WreathIcon className="absolute bottom-6 right-6 w-12 h-12 text-gold/20 group-hover:text-gold/40 transition-colors duration-1000 rotate-180" />
 
         {/* Artifact Showcase */}
-        <div className="h-[55%] w-full flex items-center justify-center p-12 relative overflow-hidden">
+        <div className="h-[45%] w-full flex items-center justify-center p-12 relative overflow-hidden">
           {/* Soft Ambient Glow - No glass, just light */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gold/5 blur-[100px] rounded-full pointer-events-none" />
 
@@ -395,14 +395,21 @@ function Card({ card, index, activeIndex, totalCards, onClick, onSelect }: CardP
             />
           </motion.div>
 
-          {/* Numbering - Roman Style */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-display text-[6rem] text-white/[0.04] pointer-events-none select-none italic">
-            {index + 1}
-          </div>
+          {/* Registration Prompt */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 1 }}
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 pointer-events-none"
+          >
+            <span className="font-heading text-[0.6rem] text-gold tracking-[0.4em] uppercase opacity-100 group-hover:text-parchment transition-all animate-pulse">
+              Click on me to register
+            </span>
+          </motion.div>
         </div>
 
         {/* Elegant Content Area */}
-        <div className="h-[45%] p-8 flex flex-col items-center text-center relative bg-gradient-to-t from-[#0c0c0e] via-[#0c0c0e] to-transparent z-20">
+        <div className="h-[55%] p-8 flex flex-col items-center text-center relative bg-gradient-to-t from-[#0c0c0e] via-[#0c0c0e] to-transparent z-20">
           <div className="w-12 h-[1px] bg-gold/40 mb-6" />
 
           <span className="font-heading text-gold/90 tracking-[0.4em] text-[0.7rem] uppercase mb-4 block font-semibold">

@@ -63,6 +63,9 @@ function Logomarquee() {
               <span className="font-heading text-[0.5rem] text-gold/40 tracking-widest uppercase mt-4 text-center group-hover:text-gold transition-colors">
                 {logo.title}
               </span>
+              <span className="font-heading text-[0.4rem] text-gold tracking-[0.2em] uppercase opacity-0 group-hover:opacity-60 transition-opacity mt-1">
+                Click to Register
+              </span>
             </div>
           ))}
         </div>
