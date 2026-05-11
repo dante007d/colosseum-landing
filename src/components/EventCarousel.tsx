@@ -144,26 +144,6 @@ export const cardData: CardData[] = [
       { name: "GAURAV", phone: "9902354734" }
     ],
   },
-  {
-    id: 9,
-    imageUrl: "/roman-art/ballista.png",
-    title: "ROBOTICS CONCLAVE",
-    type: "TECHNICAL EVENTS",
-    desc: "An engaging educational session covering robot anatomy, sensors, and real-world applications.",
-    fullBrief: "The Robotics Conclave is an engaging educational session designed for all skill levels. Covering everything from robot anatomy and sensors to advanced control systems and real-world industrial applications, this session sets the technical foundation for the ROBOWARS competition. It's where theory meets the arena.",
-    rules: [
-      "Open to all students and enthusiasts.",
-      "Duration: 60 minutes of deep-dive learning.",
-      "Covers: Anatomy, Sensors, Actuators, and Control Systems.",
-      "Interactive Q&A session with club experts."
-    ],
-    registerUrl: "#",
-    fee: "Free Session",
-    players: "Open to All",
-    contacts: [
-      { name: "ANKIT", phone: "9964006126" }
-    ],
-  },
 ];
 
 const WreathIcon = ({ className }: { className?: string }) => (

@@ -330,23 +330,6 @@ function ScheduleSection({ onSelect }: { onSelect: (event: any) => void }) {
     ],
     day2: [
       { 
-        time: "9:00 – 10:00 AM", 
-        duration: "1 hr",
-        type: "Session · Robotics & Drone Club", 
-        title: "Robotics Conclave", 
-        location: "Gallery Hall",
-        players: "Open to All",
-        desc: "An engaging educational session covering the fundamentals of robotics — anatomy, sensors, and actuators. Sets the stage for ROBOWARS."
-      },
-      { 
-        time: "10:00 – 10:15 AM", 
-        duration: "15 mins",
-        type: "Break", 
-        title: "— Transition Break —", 
-        location: "",
-        desc: ""
-      },
-      { 
         time: "10:15 AM – 12:00 PM", 
         duration: "1 hr 45 mins",
         type: "Combat · Robotics & Drone Club", 
