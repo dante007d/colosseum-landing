@@ -11,6 +11,9 @@ interface CardData {
   fullBrief: string;
   rules: string[];
   registerUrl: string;
+  fee?: string;
+  prize?: string;
+  players?: string;
   contacts: { name: string; phone: string }[];
 }
 
@@ -100,11 +103,27 @@ export default function EventModal({ isOpen, onClose, event }: EventModalProps) 
                   {event.title}
                 </h2>
                 
-                <div className="flex items-center justify-center md:justify-start gap-2 mb-8 md:mb-10">
+                <div className="flex items-center justify-center md:justify-start gap-2 mb-6">
                   <div className="h-px w-6 md:w-8 bg-gold/40" />
                   <p className="font-body italic text-parchment/60 text-[0.7rem] md:text-sm">
                     Colosseum MMXXVI · BEC Creative Spectrum
                   </p>
+                </div>
+
+                {/* Quick Stats Grid */}
+                <div className="grid grid-cols-3 gap-4 mb-10 border-y border-gold/10 py-6">
+                  <div className="flex flex-col items-center md:items-start">
+                    <span className="font-heading text-[0.55rem] text-gold/40 tracking-[0.2em] uppercase mb-1">Players</span>
+                    <span className="font-display text-sm md:text-base text-parchment tracking-wide">{event.players || "N/A"}</span>
+                  </div>
+                  <div className="flex flex-col items-center md:items-start">
+                    <span className="font-heading text-[0.55rem] text-gold/40 tracking-[0.2em] uppercase mb-1">Registration</span>
+                    <span className="font-display text-sm md:text-base text-parchment tracking-wide">{event.fee || "Free"}</span>
+                  </div>
+                  <div className="flex flex-col items-center md:items-start">
+                    <span className="font-heading text-[0.55rem] text-gold/40 tracking-[0.2em] uppercase mb-1">Prize Pool</span>
+                    <span className="font-display text-sm md:text-base text-crimson tracking-widest font-bold">{event.prize || "Glory"}</span>
+                  </div>
                 </div>
 
                 {/* Brief Section */}

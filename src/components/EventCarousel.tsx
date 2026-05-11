@@ -10,6 +10,10 @@ interface CardData {
   fullBrief: string;
   rules: string[];
   registerUrl: string;
+  fee?: string;
+  prize?: string;
+  players?: string;
+  contacts: { name: string; phone: string }[];
 }
 
 interface CardProps {
@@ -27,18 +31,21 @@ const cardData: CardData[] = [
     imageUrl: "/roman-art/helmet.png",
     title: "ROYAL RUMBLE",
     type: "TECHNICAL EVENTS",
-    desc: "A high-octane two-stage battle blending technical decoding with strategic 1v1 combat.",
-    fullBrief: "Royal Rumble is the flagship event of Colosseum 2026. Stage 1 (Decode or Death) is a high-speed technical battle where teams earn points to survive. Stage 2 (Clash Royale) pits the Top 8 in a 1v1 bracket where answering questions charges weapon cards to deal damage to opponents' health bars.",
+    desc: "A two-stage tech competition where teams battle using knowledge to attack rivals and outlast opponents.",
+    fullBrief: "Royal Rumble is a high-octane two-stage tech competition where teams battle using knowledge. Stage 1 (Decode or Death) is a high-speed technical battle where teams earn points to survive. Stage 2 (Clash Royale) pits the Top 8 in a head-to-head tactical finals — a card-based combat showdown where the last team standing is crowned champion.",
     rules: [
-      "Stage 1: Teams answer technical questions to earn Attack Points and survive elimination. Only the Top 8 advance.",
-      "Stage 2 (Clash Royale): 1v1 bracket showdown using a Card-Based Combat system.",
-      "Card System: Charge Weapon Cards by solving questions (Easy = small charge, Hard = massive charge).",
-      "Combo Attacks: Teams can combine cards for high-damage combo strikes.",
-      "Elimination: Teams are knocked out when their lives (Stage 1) or Health Bar (Stage 2) hit zero.",
-      "Starting Resources: 5 Lives for Stage 1. Finalists receive a Health Bar and 3 Weapon Cards.",
-      "Strict Rules: No phones, AI tools, or internet. Coordinators have final authority."
+      "2 – 4 Players per team.",
+      "Registration Fee: ₹25 / person.",
+      "Stage 1: Teams answer technical questions to earn Attack Points and survive elimination.",
+      "Stage 2 (Clash Royale): Top 8 teams advance to a 1v1 bracket showdown using a Card-Based Combat system.",
+      "Card System: Solve questions to charge Weapon Cards (Easy = small charge, Hard = massive charge).",
+      "Elimination: Teams are knocked out when their Health Bar hits zero.",
+      "Coordinators have final authority; no phones or AI tools allowed."
     ],
     registerUrl: "https://docs.google.com/forms/d/e/1FAIpQLSd1lCb2Q28g_qxZW00HGZXY6CGyX7mE_RvRSLGtXnnQmPKIXw/viewform?usp=header",
+    fee: "₹25 / person",
+    prize: "Trophy & Certs",
+    players: "2 – 4 Players",
     contacts: [
       { name: "GAURAV", phone: "9902354734" },
       { name: "VINOD", phone: "7483582091" }
@@ -49,18 +56,20 @@ const cardData: CardData[] = [
     imageUrl: "/roman-art/ballista.png",
     title: "ROBOWARS",
     type: "TECHNICAL EVENTS",
-    desc: "Construct virtual robots by selecting bodies and weapons, then battle in a 1v1 elimination bracket.",
-    fullBrief: "ROBOWARS challenges teams to construct virtual robots by carefully choosing bodies, weapons, and special abilities within a fixed budget, then pit them against opponents in simulated combat. Combining technical knowledge with real-time strategy, this 1v1 elimination showdown by the BEC Robotics & Drone Club rewards both smart planning and tactical thinking.",
+    desc: "A virtual robot-building and combat competition where smart builds and sharper tactics decide the winner.",
+    fullBrief: "ROBOWARS is a virtual robot-building and combat competition where teams strategically assemble their robots and battle head-to-head in a 1v1 elimination format. From selecting the right chassis to choosing the perfect weapon systems within a budget, every decision counts in this simulated arena where the sharpest tactics walk away with the prize.",
     rules: [
-      "Teams compete in a 1v1 elimination bracket with a fixed budget to build their virtual robot.",
-      "Each robot is built by selecting a Body, Primary Weapon, and Special Weapon within the budget.",
-      "Assembled robots are simulated in combat, with outcomes decided by build and real-time strategy.",
-      "ROBOWARS scores contribute to the cumulative prize pool ranking.",
-      "All team members must be present at the start, and builds must be locked in within the given time.",
-      "No changes or inter-team communication are allowed once the build phase begins.",
-      "Coordinators moderate all combat simulations and their judgment is final."
+      "Format: Solo participation.",
+      "Registration Fee: ₹25 / person | Prize Pool: ₹6,000.",
+      "Build Phase: Construct your virtual robot within the allotted budget.",
+      "Combat Phase: 1v1 elimination bracket based on build performance and strategy.",
+      "Every question solved provides resources for robot upgrades.",
+      "Coordinators moderate all combat simulations; decisions are final."
     ],
     registerUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfp0JvD9thvhq0XnWzwuX0uwXADkT43zGpJMidxQ6MmaLnDsQ/viewform",
+    fee: "₹25 / person",
+    prize: "₹6,000 Pool",
+    players: "Solo",
     contacts: [
       { name: "ANKIT", phone: "9964006126" },
       { name: "ADITYA", phone: "6363874472" }
@@ -71,18 +80,20 @@ const cardData: CardData[] = [
     imageUrl: "/roman-art/arch.png",
     title: "DOMINO EFFECT",
     type: "TECHNICAL EVENTS",
-    desc: "A progressive challenge facing increasingly powerful 'Boss Encounters'. Solve problems under pressure to defeat the Final Boss.",
-    fullBrief: "Domino Effect is the Innovation Club's flagship event — a high-stakes, level-based competition where teams tackle progressively harder questions and must defeat powerful Boss Challenges at every interval to advance. Testing knowledge, problem-solving under pressure, and strategic thinking, the event culminates in a fierce race to be the first team to conquer the ultimate Final Boss.",
+    desc: "A progressive boss-battle challenge where teams face increasingly difficult obstacles to reach the Final Boss.",
+    fullBrief: "Domino Effect is a progressive boss-battle challenge where teams solve technical and logical questions to advance through levels. At every interval, teams face increasingly difficult boss encounters that test their problem-solving under pressure. The first team to defeat the Final Boss claims victory in this ultimate test of endurance and intellect.",
     rules: [
-      "Teams start at Level 1 and advance by answering questions correctly, facing a harder Boss Challenge at designated intervals.",
-      "Bosses are multi-part problems that must be defeated to progress; skipping is not allowed.",
-      "The Final Boss is the hardest challenge; the first team to defeat it wins the event.",
-      "If no team defeats the Final Boss, the team with the furthest progression is declared the winner.",
-      "Every question has a time limit; answers must be submitted within the stipulated time.",
-      "Boss questions require a full-team consensus answer; failed Boss attempts result in a penalty.",
-      "Scores contribute to the cumulative prize pool ranking, and all coordinator decisions are final."
+      "2 – 4 Players per team.",
+      "Registration Fee: ₹25 / person | Prize Pool: ₹9,000.",
+      "Progression: Answer questions correctly to advance to the next level.",
+      "Boss Encounters: Multi-part problems that must be defeated to progress.",
+      "Final Victory: The first team to conquer the Final Boss wins.",
+      "Coordinators moderate all disputes; no external assistance allowed."
     ],
     registerUrl: "https://docs.google.com/forms/d/e/1FAIpQLSe5B_mnYQx5QNeMkDfWJoqGrqQVZ0n7RsybuC8TotiCccldag/viewform",
+    fee: "₹25 / person",
+    prize: "₹9,000 Pool",
+    players: "2 – 4 Players",
     contacts: [
       { name: "ABHISHEK", phone: "9353807050" },
       { name: "VINOD", phone: "7483582091" }
@@ -93,18 +104,20 @@ const cardData: CardData[] = [
     imageUrl: "/roman-art/mosaic.png",
     title: "FRAME THE CHAOS",
     type: "STAGE EVENTS",
-    desc: "A 60-minute photography sprint across the campus to capture beauty, stillness, and meaning in the chaos.",
-    fullBrief: "Frame The Chaos is the Photography & Videography Club's signature challenge where participants roam the college campus to capture one powerful photograph each under three distinct themes — Portrait, Product, and Street Photography. With only 45 minutes on the clock, the event pushes photographers to find beauty and meaning in everyday chaos through sharp vision, strong framing, and authentic storytelling.",
+    desc: "A 45-minute photography sprint capturing the campus across Portrait, Product, and Street themes.",
+    fullBrief: "Frame The Chaos is an intense photography sprint where participants have 45 minutes to capture their best shots across three mandatory themes: Portrait, Product, and Street Photography. It's a test of vision, creativity, and storytelling under time pressure, pushing participants to find the extraordinary within the campus chaos.",
     rules: [
-      "Time Limit: 45 minutes to complete the entire challenge.",
-      "Mandatory Themes: Must shoot all three: Portrait, Product, and Street Photography.",
-      "One Shot Per Theme: Only one final photograph allowed per theme (3 total).",
-      "Submission Requirements: Submit both the edited final image and its original unedited version for verification.",
-      "Allowed Edits: Exposure correction, colour correction, and cropping only.",
-      "Strictly Prohibited: Heavy manipulation, AI-generated edits, and compositing are not allowed.",
-      "Shot During Event Only: All photographs must be taken within the event duration — no pre-clicked images."
+      "Individual participation.",
+      "Registration Fee: ₹25 / person | Prize Pool: ₹3,000.",
+      "Time Limit: 45 minutes to capture and submit one shot per theme.",
+      "Themes: Portrait, Product, and Street Photography are mandatory.",
+      "Verification: Must submit original unedited versions along with edited shots.",
+      "Edits: Only basic color and exposure corrections allowed. No AI manipulation."
     ],
     registerUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfmyZPOcnAQ40F4v4wSyTyntaiS25JJti2iHXgV-scHS8EoPg/viewform",
+    fee: "₹25 / person",
+    prize: "₹3,000 Pool",
+    players: "Individual",
     contacts: [
       { name: "SURAJ", phone: "7483416231" },
       { name: "ABHIGNYA", phone: "7259304433" }
@@ -115,23 +128,43 @@ const cardData: CardData[] = [
     imageUrl: "/roman-art/lyre.png",
     title: "BEC'S GOT LATENT",
     type: "STAGE EVENTS",
-    desc: "An open platform for any student to showcase unique talents—singing, comedy, magic, or instrumental performance.",
-    fullBrief: "BEC's Got Latent is Colosseum's open talent showcase — a vibrant, judgment-free platform welcoming students from every department and year to perform anything from singing and stand-up to beatboxing and magic. With entries open through the website as well as on-the-spot registrations, it's a lively celebration of the diverse and unexpected talent that lives within BEC.",
+    desc: "An open talent showcase celebrating the hidden creativity of the BEC campus.",
+    fullBrief: "BEC's Got Latent is an open, non-competitive talent showcase where any student can take the stage and perform. From singing and comedy to magic and beatboxing—this is a pure celebration of the diverse hidden talents across our campus. It's about participation, togetherness, and giving every creative soul a spotlight.",
     rules: [
-      "Open to all BEC students across every department and year.",
-      "Perform anything: singing, comedy, spoken word, magic, beatboxing, instrumentals, or any unique talent.",
-      "Each act gets a 3 to 5 minute performance window.",
-      "Non-competitive: no judging, no rankings, purely celebratory.",
-      "Registrations must be submitted in advance to the coordinators (limited slots, register early)."
+      "Open to all BEC students (Individual or Group).",
+      "Time Limit: Up to 5 minutes per performance.",
+      "Talents: Singing, comedy, magic, dance, instrumentals, or any unique skill.",
+      "Non-Competitive: A showcase of talent rather than a scored competition.",
+      "Registration: Register online or on-the-spot (limited slots)."
     ],
     registerUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf8C3hy3RFMpJH-JMkAbgWAg6jFE2W_U9qZbwsE4TTfq67hhw/viewform",
+    fee: "Free Entry",
+    players: "Open to All",
     contacts: [
       { name: "GAURAV", phone: "9902354734" }
     ],
   },
+  {
+    id: 9,
+    imageUrl: "/roman-art/ballista.png",
+    title: "ROBOTICS CONCLAVE",
+    type: "TECHNICAL EVENTS",
+    desc: "An engaging educational session covering robot anatomy, sensors, and real-world applications.",
+    fullBrief: "The Robotics Conclave is an engaging educational session designed for all skill levels. Covering everything from robot anatomy and sensors to advanced control systems and real-world industrial applications, this session sets the technical foundation for the ROBOWARS competition. It's where theory meets the arena.",
+    rules: [
+      "Open to all students and enthusiasts.",
+      "Duration: 60 minutes of deep-dive learning.",
+      "Covers: Anatomy, Sensors, Actuators, and Control Systems.",
+      "Interactive Q&A session with club experts."
+    ],
+    registerUrl: "#",
+    fee: "Free Session",
+    players: "Open to All",
+    contacts: [
+      { name: "ANKIT", phone: "9964006126" }
+    ],
+  },
 ];
-
-
 
 const WreathIcon = ({ className }: { className?: string }) => (
   <svg
@@ -400,20 +433,42 @@ function Card({ card, index, activeIndex, totalCards, onClick, onSelect }: CardP
             {card.title}
           </h4>
 
-          <p className="font-body text-parchment/90 text-sm md:text-base leading-relaxed max-w-[90%] italic">
+          <p className="font-body text-parchment/90 text-sm md:text-base leading-relaxed max-w-[90%] italic mb-6">
             {card.desc}
           </p>
+
+          {/* Quick Info Grid */}
+          <div className="grid grid-cols-2 gap-4 w-full px-4 mb-6">
+            {card.players && (
+              <div className="flex flex-col items-center p-2 border border-gold/10 bg-gold/[0.02]">
+                <span className="font-heading text-[0.5rem] text-gold/40 tracking-widest uppercase mb-1">Players</span>
+                <span className="font-display text-xs text-parchment tracking-wide">{card.players}</span>
+              </div>
+            )}
+            {card.fee && (
+              <div className="flex flex-col items-center p-2 border border-gold/10 bg-gold/[0.02]">
+                <span className="font-heading text-[0.5rem] text-gold/40 tracking-widest uppercase mb-1">Entry</span>
+                <span className="font-display text-xs text-parchment tracking-wide">{card.fee}</span>
+              </div>
+            )}
+            {card.prize && (
+              <div className="col-span-2 flex flex-col items-center p-2 border border-gold/10 bg-gold/[0.02]">
+                <span className="font-heading text-[0.5rem] text-gold/40 tracking-widest uppercase mb-1">Prize Pool</span>
+                <span className="font-display text-xs text-crimson tracking-widest font-bold">{card.prize}</span>
+              </div>
+            )}
+          </div>
 
           {/* CTA for center card */}
           {isCenter && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 flex flex-col items-center gap-2"
+              className="mt-2 flex flex-col items-center gap-2"
             >
               <div className="h-px w-8 bg-gold/30" />
               <span className="font-heading text-[0.6rem] text-gold tracking-[0.3em] uppercase animate-pulse">
-                Click to explore
+                Details & Rules
               </span>
             </motion.div>
           )}

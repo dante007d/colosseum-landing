@@ -173,18 +173,144 @@ function ScheduleSection() {
   const [activeDay, setActiveDay] = useState(1);
   const schedule = {
     day1: [
-      { time: "09:00 AM", type: "General", title: "Inauguration Ceremony", location: "Main Auditorium" },
-      { time: "11:00 AM", type: "Technical", title: "Royal Rumble Prelims", location: "Arena A" },
-      { time: "02:00 PM", type: "Technical", title: "Robowars: Round 1", location: "Arena B" },
-      { time: "04:00 PM", type: "Cultural", title: "Frame the Chaos: Briefing", location: "Design Studio" },
-      { time: "06:00 PM", type: "General", title: "Networking Night", location: "Campus Plaza" },
+      { 
+        time: "1:00 PM", 
+        duration: "Opening",
+        type: "Ceremony", 
+        title: "Inauguration", 
+        location: "Gallery Hall",
+        desc: "Official opening ceremony of COLOSSEUM 2026 — marking the beginning of two days of competition, culture, and creativity."
+      },
+      { 
+        time: "2:00 – 4:00 PM", 
+        duration: "2 hrs",
+        type: "Tech Combat · Colosseum Club", 
+        title: "Royal Rumble", 
+        location: "Gallery Hall",
+        players: "2 – 4 Players",
+        fee: "₹25 / person",
+        desc: "A two-stage tech competition where teams battle using knowledge — answering questions to earn points, attack rivals, and ultimately outlast opponents."
+      },
+      { 
+        time: "4:00 – 5:00 PM", 
+        duration: "1 hr · Finals",
+        type: "Stage 2 — Finals", 
+        title: "Clash Royale", 
+        location: "Gallery Hall",
+        desc: "Top 8 teams from Royal Rumble advance to this head-to-head tactical finals — a card-based combat showdown where the last team standing is crowned champion."
+      },
+      { 
+        time: "5:00 – 5:30 PM", 
+        duration: "30 mins",
+        type: "Break", 
+        title: "— Break —", 
+        location: "",
+        desc: "Short interval to recharge before the cultural sessions."
+      },
+      { 
+        time: "5:30 – 6:30 PM", 
+        duration: "1 hr",
+        type: "Cultural · Music Club", 
+        title: "Open Jamming Session", 
+        location: "Gallery Hall",
+        players: "Open to All",
+        desc: "A fun, informal musical break where anyone can take the stage and perform. A lively 60-minute celebration of talent and good vibes."
+      },
+      { 
+        time: "6:30 – 7:00 PM", 
+        duration: "30 mins",
+        type: "Performance · Nataraj Dance Club", 
+        title: "Dance Battle", 
+        location: "Gallery Hall",
+        players: "Performance Only",
+        desc: "An exciting solo showdown between four Nataraj Club members. Two semi-finals lead to a thrilling final — judged on energy and creativity."
+      },
     ],
     day2: [
-      { time: "10:00 AM", type: "Technical", title: "Clash Royal Finals", location: "Arena A" },
-      { time: "12:00 PM", type: "Technical", title: "Robowars: Grand Finale", location: "Arena B" },
-      { time: "03:00 PM", type: "Cultural", title: "BEC's Got Latent", location: "Open Air Theater" },
-      { time: "06:00 PM", type: "General", title: "Award Ceremony", location: "Main Auditorium" },
-      { time: "08:00 PM", type: "Cultural", title: "Closing Concert", location: "Arena A" },
+      { 
+        time: "9:00 – 10:00 AM", 
+        duration: "1 hr",
+        type: "Session · Robotics & Drone Club", 
+        title: "Robotics Conclave", 
+        location: "Gallery Hall",
+        players: "Open to All",
+        desc: "An engaging educational session covering the fundamentals of robotics — anatomy, sensors, and actuators. Sets the stage for ROBOWARS."
+      },
+      { 
+        time: "10:00 – 10:15 AM", 
+        duration: "15 mins",
+        type: "Break", 
+        title: "— Transition Break —", 
+        location: "",
+        desc: ""
+      },
+      { 
+        time: "10:15 AM – 12:00 PM", 
+        duration: "1 hr 45 mins",
+        type: "Combat · Robotics & Drone Club", 
+        title: "ROBOWARS", 
+        location: "Gallery Hall",
+        players: "Solo",
+        fee: "₹25 / person",
+        prize: "₹6,000 Pool",
+        desc: "A virtual robot-building and combat competition where teams strategically assemble their robots and battle head-to-head in a 1v1 format."
+      },
+      { 
+        time: "12:00 – 1:30 PM", 
+        duration: "1.5 hrs",
+        type: "Break", 
+        title: "— Lunch Break —", 
+        location: "",
+        desc: ""
+      },
+      { 
+        time: "2:00 – 4:00 PM", 
+        duration: "2 hrs",
+        type: "Challenge · Innovation Club", 
+        title: "Domino Effect", 
+        location: "Gallery Hall",
+        players: "2 – 4 Players",
+        fee: "₹25 / person",
+        prize: "₹9,000 Pool",
+        desc: "A progressive boss-battle challenge where teams solve questions to advance through levels and face increasingly difficult boss encounters."
+      },
+      { 
+        time: "4:15 – 5:00 PM", 
+        duration: "45 mins",
+        type: "Photography · Photo & Video Club", 
+        title: "Frame The Chaos", 
+        location: "Gallery Hall",
+        players: "Individual",
+        fee: "₹25 / person",
+        prize: "₹3,000 Pool",
+        desc: "A 45-minute open photography sprint where participants capture their best shot across Portrait, Product, and Street themes."
+      },
+      { 
+        time: "5:00 – 5:15 PM", 
+        duration: "15 mins",
+        type: "Break", 
+        title: "— Break —", 
+        location: "",
+        desc: ""
+      },
+      { 
+        time: "5:15 – 6:15 PM", 
+        duration: "1 hr",
+        type: "Talent Showcase · Cultural", 
+        title: "BEC's Got Latent", 
+        location: "Gallery Hall",
+        players: "Open to All",
+        desc: "An open, non-competitive talent showcase where any BEC student can take the stage and perform for up to 5 minutes."
+      },
+      { 
+        time: "6:20 – 8:00 PM", 
+        duration: "1 hr 40 mins",
+        type: "Grand Finale · Music · Dance · Drama", 
+        title: "Grand Cultural Concert", 
+        location: "Gallery Hall",
+        prize: "Closing Ceremony",
+        desc: "The spectacular closing event featuring curated performances by the Music, Dance, and Drama clubs. A powerful statement of identity."
+      },
     ],
   };
 
@@ -230,45 +356,83 @@ function ScheduleSection() {
               transition={{ duration: 0.5 }}
               className="grid grid-cols-1 gap-4"
             >
-              {currentSchedule.map((item, idx) => (
-                <div 
-                  key={idx}
-                  className="group flex flex-col md:flex-row items-center gap-6 p-6 md:p-8 bg-gold/[0.03] border border-gold/10 hover:border-gold/30 transition-all hover:bg-gold/[0.07] relative overflow-hidden"
-                >
-                  <div className="absolute top-0 left-0 w-1 h-full bg-gold/0 group-hover:bg-gold transition-all duration-500" />
-                  
-                  {/* Time */}
-                  <div className="w-full md:w-40 shrink-0">
-                    <span className="font-display text-xl text-gold tracking-tighter block mb-1">{item.time}</span>
-                    <span className={`text-[0.6rem] font-heading tracking-widest uppercase px-2 py-0.5 border rounded-full ${
-                      item.type === "Technical" ? "text-crimson border-crimson/30" : 
-                      item.type === "Cultural" ? "text-blue-400 border-blue-400/30" : 
-                      "text-gold/40 border-gold/20"
-                    }`}>
-                      {item.type}
-                    </span>
-                  </div>
+              {currentSchedule.map((item, idx) => {
+                const isBreak = item.type === "Break";
+                return (
+                  <div 
+                    key={idx}
+                    className={`group flex flex-col md:grid md:grid-cols-[160px_1fr_auto] items-start gap-6 p-6 md:p-8 transition-all relative overflow-hidden ${
+                      isBreak 
+                        ? "bg-gold/[0.01] border border-dashed border-gold/10 opacity-60" 
+                        : "bg-gold/[0.03] border border-gold/10 hover:border-gold/30 hover:bg-gold/[0.07] shadow-sm hover:shadow-gold/5"
+                    }`}
+                  >
+                    {!isBreak && (
+                      <div className="absolute top-0 left-0 w-1 h-full bg-gold/0 group-hover:bg-gold transition-all duration-500" />
+                    )}
+                    
+                    {/* Time */}
+                    <div className="w-full shrink-0 flex flex-col gap-1">
+                      <span className="font-display text-lg text-gold tracking-tighter block leading-none">{item.time}</span>
+                      <span className="font-heading text-[0.6rem] text-gold/40 tracking-widest uppercase">
+                        {item.duration}
+                      </span>
+                    </div>
 
-                  {/* Divider */}
-                  <div className="hidden md:block h-12 w-px bg-gold/10" />
+                    {/* Details */}
+                    <div className="flex-grow text-left">
+                      <span className={`text-[0.6rem] font-heading tracking-[0.2em] uppercase mb-2 block ${
+                        ["Technical", "Tech Combat", "Combat", "Challenge"].some(t => item.type?.includes(t)) ? "text-crimson" : 
+                        ["Cultural", "Talent", "Finale", "Performance", "Session"].some(t => item.type?.includes(t)) ? "text-blue-400" : 
+                        item.type === "Ceremony" ? "text-gold" :
+                        "text-gold/40"
+                      }`}>
+                        {item.type}
+                      </span>
+                      <h4 className={`font-display text-xl text-parchment tracking-wide uppercase mb-2 ${isBreak ? "italic text-parchment/40" : ""}`}>
+                        {item.title}
+                      </h4>
+                      {item.desc && (
+                        <p className="font-body text-parchment/60 text-sm leading-relaxed max-w-2xl mb-4">
+                          {item.desc}
+                        </p>
+                      )}
+                      {item.location && (
+                        <p className="font-heading text-[0.6rem] tracking-widest text-gold/30 uppercase flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-gold/20" />
+                          {item.location}
+                        </p>
+                      )}
+                    </div>
 
-                  {/* Details */}
-                  <div className="flex-grow text-center md:text-left">
-                    <h4 className="font-display text-lg md:text-xl text-parchment tracking-wide uppercase mb-1">
-                      {item.title}
-                    </h4>
-                    <p className="font-body italic text-gold/50 text-sm flex items-center justify-center md:justify-start gap-2">
-                      <span className="w-1 h-1 rounded-full bg-gold/30" />
-                      {item.location}
-                    </p>
-                  </div>
+                    {/* Meta Pills */}
+                    <div className="flex flex-wrap md:flex-col gap-2 items-end mt-4 md:mt-0">
+                      {item.players && (
+                        <span className="text-[0.55rem] font-heading tracking-widest uppercase px-3 py-1 bg-blue-500/10 text-blue-300 border border-blue-500/20 rounded-full">
+                          {item.players}
+                        </span>
+                      )}
+                      {item.fee && (
+                        <span className="text-[0.55rem] font-heading tracking-widest uppercase px-3 py-1 bg-gold/10 text-gold border border-gold/20 rounded-full">
+                          Fee: {item.fee}
+                        </span>
+                      )}
+                      {item.prize && (
+                        <span className="text-[0.55rem] font-heading tracking-widest uppercase px-3 py-1 bg-crimson/10 text-crimson border border-crimson/20 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.1)]">
+                          {item.prize}
+                        </span>
+                      )}
+                    </div>
 
-                  {/* Icon/Decoration */}
-                  <div className="opacity-10 group-hover:opacity-30 transition-opacity absolute right-4 top-1/2 -translate-y-1/2 hidden md:block">
-                    <ScrollText size={60} className="text-gold" />
+                    {/* Icon/Decoration */}
+                    {!isBreak && (
+                      <div className="opacity-[0.03] group-hover:opacity-[0.08] transition-opacity absolute -right-4 -bottom-4 hidden md:block">
+                        <ScrollText size={100} className="text-gold" />
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </motion.div>
           </AnimatePresence>
         </div>
@@ -278,7 +442,7 @@ function ScheduleSection() {
 }
 
 function Countdown() {
-  const targetDate = new Date("2026-05-16T09:00:00").getTime();
+  const targetDate = new Date("2026-05-16T13:00:00").getTime();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -566,16 +730,16 @@ function Colosseum() {
           className="relative z-20 text-center px-4 w-full"
         >
           <p
-            className="font-heading text-gold tracking-[0.4em] text-[0.6rem] md:text-xs uppercase mb-4 md:mb-6"
+            className="font-heading text-gold tracking-[0.5em] text-[0.6rem] md:text-xs uppercase mb-2"
             style={{ animation: mounted ? "fadeUp 0.9s 0.3s both" : undefined, opacity: 1 }}
           >
-            16th & 17th May 2026 · BEC Creative Spectrum
+            BEC Creative Spectrum Presents
           </p>
           <div 
-            className="py-4 md:py-8 flex justify-center items-center"
+            className="py-4 md:py-8 flex flex-col justify-center items-center"
           >
             <h1
-              className="font-display text-gold leading-[1.1] pb-4 px-2 flex justify-center items-center flex-nowrap gap-0 md:gap-2 relative z-[50]"
+              className="font-display text-gold leading-[1.1] pb-2 px-2 flex justify-center items-center flex-nowrap gap-0 md:gap-2 relative z-[50]"
               style={{ 
                 fontSize: "min(13vw, 12rem)",
                 textShadow: "0 0 20px rgba(212, 175, 55, 0.5)",
@@ -583,7 +747,16 @@ function Colosseum() {
             >
               COLOSSEUM
             </h1>
+            <h2 className="font-display text-gold-gradient text-2xl md:text-5xl tracking-[0.4em] -mt-2 md:-mt-4">
+              2026
+            </h2>
           </div>
+          <p
+            className="font-heading text-gold/80 tracking-[0.3em] text-[0.6rem] md:text-xs uppercase mb-8"
+            style={{ animation: mounted ? "fadeUp 1s 0.6s both" : undefined, opacity: 1 }}
+          >
+            16th & 17th May 2026 · Gallery Hall, BEC
+          </p>
           <Countdown />
           <p
             className="font-body italic text-parchment/80 mt-6 max-w-sm md:max-w-none mx-auto"
@@ -673,13 +846,12 @@ function Colosseum() {
               About the Festival
             </h2>
             <p className="font-body text-parchment/90 text-xl leading-relaxed mb-8">
-              COLOSSEUM 2026 is the inaugural Techno-Cultural Festival of BEC Creative Spectrum—the
-              first student-led creative association in the 60-year history of Basaveshwar
-              Engineering College.
+              For over sixty years, Basaveshwar Engineering College has stood as a bastion of technical excellence. Today, we're writing a new chapter. 
+              BEC Creative Spectrum, the college's first-ever student-led creative movement, presents Colosseum 2026. 
             </p>
-            <p className="font-body text-parchment/80 text-lg leading-relaxed">
-              The festival spans two days, blending the technical rigour of competitive gaming and
-              robotics with the creative richness of music, dance, drama, and photography.
+            <p className="font-body text-parchment/70 text-lg leading-relaxed mb-8">
+              This isn't just another festival; it's a two-day collision of technical grit and artistic soul. We're bridging the gap between the precision 
+              of robotics and the raw energy of performance, proving that true engineering is as much about the heart as it is about the mind.
             </p>
           </motion.div>
 
@@ -753,7 +925,7 @@ function Colosseum() {
             The Gladiators' Call
           </p>
           <h2
-            className="font-display text-gold-gradient leading-tight mb-16"
+            className="font-display leading-tight mb-16"
             style={{ fontSize: "clamp(2.5rem, 10vw, 7rem)", letterSpacing: "0.1em" }}
           >
             <span className="font-heading text-[0.35em] md:text-[0.3em] text-[#d4af37] tracking-[0.5em] block mb-4 font-black uppercase drop-shadow-[0_4px_15px_rgba(0,0,0,0.9)]">
@@ -762,7 +934,9 @@ function Colosseum() {
             <span className="font-heading text-[0.2em] md:text-[0.18em] text-[#d4af37] tracking-[0.7em] block mb-10 md:mb-14 font-bold uppercase italic drop-shadow-md">
               BE THE ONE TO SAY
             </span>
-            "VENI, VIDI, VICI"
+            <span className="text-gold-gradient">
+              "VENI, VIDI, VICI"
+            </span>
           </h2>
           <div className="h-px w-24 bg-[#d4af37]/40 mx-auto mb-12 shadow-[0_0_10px_rgba(212,175,55,0.5)]" />
           <p className="font-heading text-parchment/90 tracking-[0.4em] text-[0.8rem] uppercase">
